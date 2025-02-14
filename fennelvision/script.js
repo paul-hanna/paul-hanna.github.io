@@ -30,6 +30,10 @@ function setup() {
   cameraButton.mousePressed(switchCamera);
 
   startCamera(usingBackCamera);
+
+  // Detect orientation change
+  window.addEventListener('orientationchange', adjustVideoSize, false);
+  window.addEventListener('resize', adjustVideoSize, false);
 }
 
 function draw() {
@@ -75,6 +79,8 @@ function draw() {
 
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
+  // Recalculate video scaling on window resize
+  adjustVideoSize();
 }
 
 // Start camera & check for LiDAR support
@@ -125,4 +131,25 @@ async function startCamera(useBack) {
 function switchCamera() {
   usingBackCamera = !usingBackCamera;
   startCamera(usingBackCamera);
+}
+
+// Detect screen orientation change and adjust video scaling
+function adjustVideoSize() {
+  let videoAspectRatio = capture.width / capture.height;
+  let videoWidth, videoHeight;
+
+  // Handle landscape and portrait orientations
+  if (windowWidth / windowHeight > videoAspectRatio) {
+    // Portrait mode (window is taller)
+    videoHeight = windowHeight;
+    videoWidth = videoHeight * videoAspectRatio;
+  } else {
+    // Landscape mode (window is wider)
+    videoWidth = windowWidth;
+    videoHeight = videoWidth / videoAspectRatio;
+  }
+
+  // Center the video within the window
+  let xOffset = (windowWidth - videoWidth) / 2;
+  let yOffset = (windowHeight - videoHeight) / 2;
 }

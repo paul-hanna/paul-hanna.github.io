@@ -50,19 +50,9 @@ function draw() {
     }
 
     // Get video aspect ratio and scale it to fit window
-    let videoAspectRatio = capture.width / capture.height;
+   // let videoAspectRatio = capture.width / capture.height;
     let videoWidth, videoHeight;
 
-    // Check if the window is in portrait or landscape mode
-    if (windowWidth / windowHeight > videoAspectRatio) {
-      // Portrait mode (window is taller)
-      videoHeight = windowHeight;
-      videoWidth = videoHeight * videoAspectRatio;
-    } else {
-      // Landscape mode (window is wider)
-      videoWidth = windowWidth;
-      videoHeight = videoWidth / videoAspectRatio;
-    }
 
     // Center the video within the window
     let xOffset = (windowWidth - videoWidth) / 2;

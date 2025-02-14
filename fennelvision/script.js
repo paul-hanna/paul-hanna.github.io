@@ -30,3 +30,22 @@ function setup() {
     capture.size(windowWidth, windowHeight);
   }
 }
+
+function touchStarted() {
+  if (!capture) { // Only request once
+    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      navigator.mediaDevices.getUserMedia({ video: true })
+        .then(function(stream) {
+          capture = createCapture(VIDEO, stream);
+          capture.hide();
+        })
+        .catch(function(error) {
+          console.error('Error accessing camera:', error);
+          alert('Camera access denied or not available.'); // Inform the user
+        });
+    } else {
+      console.error('getUserMedia not supported.');
+      alert('Your browser does not support camera access.'); // Inform the user
+    }
+  }
+}

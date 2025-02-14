@@ -34,7 +34,7 @@ void main() {
         depth = texture2D(depthTex, uv).r;
     } else {
 
-        float gradientSharpness = 3.0; // Adjust this value to control sharpness (higher = sharper)
+        float gradientSharpness = 0.05; // Adjust this value to control sharpness (higher = sharper)
         depth = pow(uv.y, gradientSharpness); // Non-linear depth based on vertical position
     }
 

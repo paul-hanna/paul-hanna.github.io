@@ -7,32 +7,26 @@ function preload() {
 }
 
 function setup() {
-  createCanvas(windowWidth, windowHeight, WEBGL);
-  noStroke();
+    createCanvas(windowWidth, windowHeight, WEBGL);
   
-  // Start video capture
-  capture = createCapture(VIDEO);
-  capture.size(windowWidth, windowHeight);
-  capture.hide(); // Hide the default HTML video element
-}
+    capture = createCapture(VIDEO);
+    capture.size(windowWidth, windowHeight);
+    capture.hide();
+   
+  }
+  
 
-function draw() {
+  function draw() {
     shader(catShader);
     catShader.setUniform('tex0', capture);
     catShader.setUniform('resolution', [width, height]);
-    
-    // Since no depth texture is available on the laptop, set hasDepth to false.
     catShader.setUniform('hasDepth', false);
-    
-    // If you had a depth texture, you’d also set:
-    // catShader.setUniform('depthTex', depthCapture);
-    
-    // Draw a rectangle covering the whole canvas.
-    rect(-width / 2, -height / 2, width, height);
-  }
   
+    plane(width, height, 50, 50); 
   
 
-function windowResized() {
-  resizeCanvas(windowWidth, windowHeight);
+  function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+    capture.size(windowWidth, windowHeight);
+  }
 }

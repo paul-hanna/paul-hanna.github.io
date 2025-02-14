@@ -1,6 +1,7 @@
 let capture;
 let catShader;
-let cameraStarted = false; // Flag to track if user has enabled camera
+let usingBackCamera = false; // Tracks which camera is in use
+let cameraButton;
 
 function preload() {
   catShader = loadShader('catVisionShader.vert', 'catVisionShader.frag');
@@ -8,37 +9,61 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
+  
+  // Create a button to switch cameras
+  cameraButton = createButton('Switch Camera');
+  cameraButton.position(10, 10);
+  cameraButton.mousePressed(switchCamera);
 
-  // Set up video capture but don't start playing until user interaction
-  capture = createCapture(VIDEO);
-  capture.size(windowWidth, windowHeight);
-  capture.hide(); // Hide the default video element
-
-  // Mobile fix: require user interaction to start video
-  if (/iPhone|iPad|Android/i.test(navigator.userAgent)) {
-    alert('Tap the screen to enable the camera.');
-  }
+  startCamera(usingBackCamera); // Start with the front camera
 }
 
 function draw() {
-  shader(catShader);
-  catShader.setUniform('tex0', capture);
-  catShader.setUniform('resolution', [width, height]);
-  catShader.setUniform('hasDepth', false);
-
-  plane(width, height, 50, 50);
+  if (capture && capture.elt.readyState === capture.elt.HAVE_ENOUGH_DATA) {
+    shader(catShader);
+    catShader.setUniform('tex0', capture);
+    catShader.setUniform('resolution', [width, height]);
+    catShader.setUniform('hasDepth', false);
+    plane(width, height, 50, 50);
+  }
 }
 
-// Ensure canvas resizes properly
 function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
-  capture.size(windowWidth, windowHeight);
 }
 
-// Mobile fix: Start video on user interaction
-function touchStarted() {
-  if (!cameraStarted) {
-    cameraStarted = true; // Set flag to prevent multiple calls
-    capture.play();
+// Start the camera with the given mode (true = back, false = front)
+function startCamera(useBack) {
+  let constraints = {
+    video: { facingMode: useBack ? "environment" : "user" }
+  };
+
+  // Stop any existing video stream
+  if (capture) {
+    let stream = capture.elt.srcObject;
+    if (stream) {
+      let tracks = stream.getTracks();
+      tracks.forEach(track => track.stop());
+    }
+    capture.remove(); // Remove the old capture element
   }
+
+  // Request new video stream
+  navigator.mediaDevices.getUserMedia(constraints)
+    .then(stream => {
+      capture = createCapture(stream);
+      capture.elt.srcObject = stream; // Assign stream directly
+      capture.size(windowWidth, windowHeight);
+      capture.hide();
+    })
+    .catch(error => {
+      console.error('Camera access error:', error);
+      alert('Could not access the camera. Please check permissions.');
+    });
+}
+
+// Switch between front and back cameras
+function switchCamera() {
+  usingBackCamera = !usingBackCamera;
+  startCamera(usingBackCamera);
 }

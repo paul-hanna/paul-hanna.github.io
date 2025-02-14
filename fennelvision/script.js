@@ -35,8 +35,9 @@ function setup() {
 
 function draw() {
   background(0);
-  
+
   if (capture && capture.elt.readyState === capture.elt.HAVE_ENOUGH_DATA) {
+    // Set up the shader with our uniforms
     shader(catShader);
     catShader.setUniform('tex0', capture);
     catShader.setUniform('resolution', [width, height]);
@@ -44,52 +45,45 @@ function draw() {
     if (hasDepth && depthTexture) {
       catShader.setUniform('depthTex', depthTexture);
     }
+
+    // Get the native video dimensions
+    let nativeVideoWidth = capture.elt.videoWidth;
+    let nativeVideoHeight = capture.elt.videoHeight;
     
-    // Get camera dimensions: use capture.width if available, else the video element’s dimensions.
-    let camW = capture.width || capture.elt.videoWidth;
-    let camH = capture.height || capture.elt.videoHeight;
-    let videoAspectRatio = camW / camH;
-    
-    // Get current device orientation (0 for portrait, 90/-90 for landscape)
-    let orientation = window.orientation || 0;
-    
-    // If the device is rotated, the video feed might be rotated relative to the display.
-    // In that case, swap the aspect ratio.
-    if (Math.abs(orientation) === 90) {
-      videoAspectRatio = camH / camW;
-    }
-    
-    // Calculate dimensions for the video plane to fit the canvas while preserving aspect ratio.
-    let displayAspectRatio = windowWidth / windowHeight;
-    let videoDrawWidth, videoDrawHeight;
-    if (displayAspectRatio > videoAspectRatio) {
-      videoDrawHeight = windowHeight;
-      videoDrawWidth = videoDrawHeight * videoAspectRatio;
+    // If the metadata hasn’t loaded yet, skip drawing
+    if (nativeVideoWidth === 0 || nativeVideoHeight === 0) return;
+
+    // Compute the video’s aspect ratio
+    let videoAspect = nativeVideoWidth / nativeVideoHeight;
+    let canvasAspect = width / height;
+
+    // Calculate drawing dimensions that preserve the video’s aspect ratio
+    let drawWidth, drawHeight;
+    if (canvasAspect > videoAspect) {
+      // Canvas is wider than the video: match height
+      drawHeight = height;
+      drawWidth = height * videoAspect;
     } else {
-      videoDrawWidth = windowWidth;
-      videoDrawHeight = videoDrawWidth / videoAspectRatio;
+      // Canvas is taller than the video: match width
+      drawWidth = width;
+      drawHeight = width / videoAspect;
     }
-    
+
     push();
+    // In WEBGL mode, (0, 0) is at the center.
+    // Drawing a plane centers it by default. No extra translate is needed.
     
-    // Translate to center of canvas.
-    // In WEBGL mode, (0,0) is the canvas center.
-    // If you need further centering adjustments, you can translate as needed.
-    
-    // Apply rotation based on device orientation.
-    if (orientation !== 0) {
-      rotateZ(radians(orientation));
-    }
-    
-    // Flip horizontally only if using the front camera (which is usually mirrored).
+    // Flip horizontally only for the front camera (mirrored view)
     if (!usingBackCamera) {
       scale(-1, 1);
     }
     
-    plane(videoDrawWidth, videoDrawHeight);
+    // Draw the plane using the computed dimensions
+    plane(drawWidth, drawHeight);
     pop();
   }
 }
+
 
 
 function windowResized() {

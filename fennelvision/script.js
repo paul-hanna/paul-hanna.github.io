@@ -1,6 +1,6 @@
 let capture;
 let catShader;
-let usingBackCamera = false; // Tracks which camera is in use
+let usingBackCamera = false;
 let cameraButton;
 
 function preload() {
@@ -9,22 +9,37 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
+
+  // Remove any margins and make it fullscreen
+  document.body.style.margin = "0";
+  document.body.style.overflow = "hidden";
   
   // Create a button to switch cameras
   cameraButton = createButton('Switch Camera');
-  cameraButton.position(10, 10);
+  cameraButton.style('position', 'absolute');
+  cameraButton.style('top', '10px');
+  cameraButton.style('left', '10px');
+  cameraButton.style('z-index', '10');
   cameraButton.mousePressed(switchCamera);
 
-  startCamera(usingBackCamera); // Start with the front camera
+  startCamera(usingBackCamera);
 }
 
 function draw() {
+  background(0);
+
   if (capture && capture.elt.readyState === capture.elt.HAVE_ENOUGH_DATA) {
     shader(catShader);
     catShader.setUniform('tex0', capture);
     catShader.setUniform('resolution', [width, height]);
     catShader.setUniform('hasDepth', false);
-    plane(width, height, 50, 50);
+
+    // Fix the plane to properly display the video fullscreen
+    push();
+    translate(0, 0, 0);
+    scale(-1, 1); // Mirror the video so it appears natural
+    plane(width, height);
+    pop();
   }
 }
 
@@ -32,27 +47,31 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-// Start the camera with the given mode (true = back, false = front)
+// Start the camera with the correct mode
 function startCamera(useBack) {
   let constraints = {
-    video: { facingMode: useBack ? "environment" : "user" }
+    video: {
+      facingMode: useBack ? "environment" : "user",
+      width: { ideal: windowWidth },
+      height: { ideal: windowHeight }
+    }
   };
 
-  // Stop any existing video stream
+  // Stop existing video before starting a new one
   if (capture) {
     let stream = capture.elt.srcObject;
     if (stream) {
       let tracks = stream.getTracks();
       tracks.forEach(track => track.stop());
     }
-    capture.remove(); // Remove the old capture element
+    capture.remove();
   }
 
-  // Request new video stream
+  // Start the new camera
   navigator.mediaDevices.getUserMedia(constraints)
     .then(stream => {
       capture = createCapture(stream);
-      capture.elt.srcObject = stream; // Assign stream directly
+      capture.elt.srcObject = stream;
       capture.size(windowWidth, windowHeight);
       capture.hide();
     })

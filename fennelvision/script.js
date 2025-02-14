@@ -1,7 +1,9 @@
 let capture;
 let catShader;
-let usingBackCamera = false;
+let usingBackCamera = true; // Default to back camera for LiDAR
 let cameraButton;
+let depthTexture;
+let hasDepth = false;
 
 function preload() {
   catShader = loadShader('catVisionShader.vert', 'catVisionShader.frag');
@@ -9,17 +11,21 @@ function preload() {
 
 function setup() {
   createCanvas(windowWidth, windowHeight, WEBGL);
-
-  // Remove any margins and make it fullscreen
+  
+  // Remove browser margins for fullscreen
   document.body.style.margin = "0";
   document.body.style.overflow = "hidden";
-  
-  // Create a button to switch cameras
+
+  // Create button to switch cameras
   cameraButton = createButton('Switch Camera');
   cameraButton.style('position', 'absolute');
   cameraButton.style('top', '10px');
   cameraButton.style('left', '10px');
   cameraButton.style('z-index', '10');
+  cameraButton.style('padding', '20px 40px'); // Increase padding for bigger button
+  cameraButton.style('background-color', '#007BFF'); // Optional: Change background color
+  cameraButton.style('color', 'white'); // Optional: Set text color
+  cameraButton.style('border', 'none'); // Optional: Remove border
   cameraButton.mousePressed(switchCamera);
 
   startCamera(usingBackCamera);
@@ -27,17 +33,21 @@ function setup() {
 
 function draw() {
   background(0);
-
+  
   if (capture && capture.elt.readyState === capture.elt.HAVE_ENOUGH_DATA) {
     shader(catShader);
     catShader.setUniform('tex0', capture);
     catShader.setUniform('resolution', [width, height]);
-    catShader.setUniform('hasDepth', false);
+    catShader.setUniform('hasDepth', hasDepth);
+    
+    if (hasDepth && depthTexture) {
+      catShader.setUniform('depthTex', depthTexture);
+    }
 
-    // Fix the plane to properly display the video fullscreen
+    // Adjust plane to cover screen correctly
     push();
     translate(0, 0, 0);
-    scale(-1, 1); // Mirror the video so it appears natural
+    scale(-1, 1); // Mirror front camera
     plane(width, height);
     pop();
   }
@@ -47,8 +57,8 @@ function windowResized() {
   resizeCanvas(windowWidth, windowHeight);
 }
 
-// Start the camera with the correct mode
-function startCamera(useBack) {
+// Start camera & check for LiDAR support
+async function startCamera(useBack) {
   let constraints = {
     video: {
       facingMode: useBack ? "environment" : "user",
@@ -57,7 +67,7 @@ function startCamera(useBack) {
     }
   };
 
-  // Stop existing video before starting a new one
+  // Stop previous camera stream
   if (capture) {
     let stream = capture.elt.srcObject;
     if (stream) {
@@ -67,13 +77,23 @@ function startCamera(useBack) {
     capture.remove();
   }
 
-  // Start the new camera
+  // Request new video stream
   navigator.mediaDevices.getUserMedia(constraints)
-    .then(stream => {
+    .then(async stream => {
       capture = createCapture(stream);
       capture.elt.srcObject = stream;
       capture.size(windowWidth, windowHeight);
       capture.hide();
+      
+      // Check if LiDAR depth is available
+      if ('depth' in capture.elt) {
+        depthTexture = capture.elt.depth;
+        hasDepth = true;
+        console.log("LiDAR Depth Texture Activated");
+      } else {
+        hasDepth = false;
+        console.log("No LiDAR depth detected. Using simulated blur.");
+      }
     })
     .catch(error => {
       console.error('Camera access error:', error);

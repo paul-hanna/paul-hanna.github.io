@@ -1,9 +1,11 @@
 <!DOCTYPE HTML>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>notes from underground</title>
+    <link rel="stylesheet" href="https://use.typekit.net/oxs8fdu.css">
     <style>
 body {
     display: flex;
@@ -18,14 +20,14 @@ body {
 
 .letter {
     font-family: 'Courier New', Courier, monospace;
-    font-size:medium;
-    width: 70vw;
-    max-width: 1000px; 
+    font-size: large;
+    width: 50vw;
+    max-width: 600px; 
     text-align: left;
     white-space: pre-wrap; 
     position: relative; 
-    padding: 1px; 
-    color: antiquewhite;
+    padding: 10px; 
+    color: white;
 }
 
 @keyframes typing {
@@ -41,23 +43,8 @@ body {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const letterDiv = document.querySelector(".letter");
-            const text = `<a></a>Kelly<a></a><a></a>     
-
-Its 9:00 pm and we can hear <a></a>shots—no white lights are allowed to be on at night,<a></a> no leaving the building after dark.<a></a><a></a> I hope we aren’t here long!<a></a><a></a> We drove in and two <a></a>helicopters were landed taking prisoners off.<a></a><a></a><a></a>
-
-I’m <a></a>scared of helicopters because of the dream.<a></a><a></a> I think I wrote it down before.<a></a><a></a> I saw a helicopter and it looked like the tail was swaying back and forth then it did it again then a huge <a></a>flame/round shot up and it <a></a>exploded.<a></a><a></a> I turned around and we were under attack,<a></a> I didn’t have my <a></a>weapon (gun) so all we could do was hide under these picknick tables.<a></a><a></a><a></a><a></a><a></a>
-        
-I have a <a></a><a>bad feeling</a> about this place.<a></a> I want to leave as soon as possible!<a></a><a></a> We are still hoping to be home X-mas or soon after.—<a></a><a></a>
-        
-I love you.<a></a><a></a><a></a>
-
-I’m going to get some sleep.<a></a><a></a><a></a><a></a><a></a>
-        
-I’ll write you again soon.<a></a><a></a><a></a><a></a><a></a>
-        
-Please don’t give up on me!<a></a><a></a><a></a><a></a><a></a>
-        
-<a></a><a></a><a></a><a></a><a id="signoff" href="step/index.html" style="color: red;">Sabrina</a>`;
+            const text = `This experience contains disturbing allusions to and graphic depictions of violence, as well as brief instances of flashing lights.<br><br><br>
+            <a href="letter1/index.html" style="color: red;">> I understand.</a>`;
         
             letterDiv.innerHTML = ""; // Clear initial content
         
@@ -75,77 +62,6 @@ Please don’t give up on me!<a></a><a></a><a></a><a></a><a></a>
         });
         </script>
 
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                // let audioPlayed = false; 
-
-                // function triggerAudio() {
-                //     if (audioPlayed) return;
-                //     audioPlayed = true;
-
-                    window.speechSynthesis.cancel();
-                    let audioFiles = [
-
-                        {
-                            file: "docs/sound/milhel.wav",
-                            volume: 0.4,        
-                            playbackRate: .7,    
-                            delay: 0,        //ms
-                        },
-
-                    ];
-
-                    const text = `Kelly
-
-Its nine 'o clock pm and we can hear shots—no white lights are allowed to be on at night, no leaving the building after dark. I hope we aren’t here long! We drove in and two helicopters were landed taking prisoners off.
-I’m scared of helicopters because of the dream. I think I wrote it down before. I saw a helicopter and it looked like the tail was swaying back and forth then it did it again then a huge flame/round shot up and it exploded. I turned around and we were under attack, I didn’t have my weapon (gun) so all we could do was hide under these picnic tables.
-
-I have a bad feeling about this place. I want to leave as soon as possible! We are still hoping to be home X-mas or soon after.—
-
-I love you.
-
-I’m going to get some sleep.
-
-I’ll write you again soon.
-
-Please don’t give up on me!
-
-Sabrina`;
-
-function playAudioWithDelay(audioInfo) {
-        const audio = new Audio(audioInfo.file);
-        audio.volume = audioInfo.volume || 1;  
-        audio.playbackRate = audioInfo.playbackRate || 1;
-
-        setTimeout(() => {
-            audio.play(); 
-        }, audioInfo.delay);
-
-    }
-    function speakText(textToSpeak) {
-        const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.rate = 1.2; 
-        utterance.pitch = 1;
-        utterance.volume = .5;
-        utterance.lang = "en-US";
-        window.speechSynthesis.speak(utterance);
-        audioFiles.forEach((audioInfo) => {
-            playAudioWithDelay(audioInfo);
-        });
-    }
-
-    speakText(text);
-                }
-            
-    // document.addEventListener("click", triggerAudio, { once: true });
-    // document.addEventListener("scroll", triggerAudio, { once: true });
-    // document.addEventListener("keydown", triggerAudio, { once: true });
-);   
-    </script>
-        
-<script>
-
-</script>
 
 </body>
 </html>

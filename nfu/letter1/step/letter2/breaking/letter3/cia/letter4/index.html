@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>notes from underground</title>
+    <style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh; 
+    margin: 0;
+    background-color: #000000; 
+    overflow: hidden; 
+
+}
+
+.letter {
+    font-family: 'Courier New', Courier, monospace;
+    font-size:medium;
+    width: 70vw;
+    max-width: 1000px; 
+    text-align: left;
+    white-space: pre-wrap; 
+    position: relative; 
+    padding: 1px; 
+    color: antiquewhite;
+}
+
+.overlay-text {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 30px;
+            text-align: center;
+            opacity: 0;
+        }
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+    </style>
+</head>
+<body>
+    <div class="overlay-text">notes from underground <br>paul hanna</div> <!-- This is the new overlay text -->
+
+    <div class="letter"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const letterDiv = document.querySelector(".letter");
+            const overlayText = document.querySelector(".overlay-text");
+
+            const text = `Oct 20, 03<a></a><a></a>
+
+10:40pm<a></a><a></a>
+
+Kelly,<a></a><a></a>
+
+Okay,<a></a> I don't like that anymore.<a></a><a></a> At first it was funny but these people are going too far.<a></a><a></a> I ended your letter last night because it was time to wake the MI prisoners and "mess with them" but it went too far even I can't handle whats going on.<a></a><a></a> I cant get it out of my head.<a></a><a></a> I walk down stairs after blowing the whistle and beating on the cells with an asp to find "the taxicab driver" handcuffed backwards to his window with some underwear over his head and face.<a></a><a></a> He looked like Jesus Christ.<a></a><a></a> At first I had to laugh so I went on and grabbed the camera and took a picture.<a></a><a></a> One of the guys took my asp and started “poking” at his dick.<a></a><a></a> Again I thought,<a></a> okay that’s funny then it hit me,<a></a> that’s a form of molestation.<a></a> You can't do that.<a></a><a></a> I took more pictures now to "record" what is going on.<a></a><a></a> They started talking to this man and at first he was talking "I'm just a taxicab driver, I did nothing."<a></a><a></a> He claims he'd never try to hurt US soldiers that he picked up the wrong people.<a></a><a></a> Then he stopped talking.<a></a><a></a> They turned the lights out and slammed the door and left him there while they went down to cell #4.<a></a><a></a> This man had been so fucked that when they grabbed his foot through the cell bars he began screaming and crying.<a></a><a></a> After praying to god he moans a constant short Ah,<a></a> Ah every few seconds for the rest of the night.<a></a><a></a> I don't know what they did to this guy.<a></a><a></a> The first one remained handcuffed for maybe 11⁄2-2 hours until he started yelling with pain for god.<a></a><a></a> So they went back in and handcuffed him to the top bunk on either side of the bed while he stood on the side. He was there for a little over an hour when he started yelling again for god. <a></a><a></a>Not many people know this shit goes on.<a></a><a></a> The only reason I want to be there is to get the pictures and prove that the US is not what they think.<a></a><a></a> But I don't know if I can take it mentally.<a></a><a></a> What if that was me in their shoes.<a></a><a></a> These people will be our future terrorist. <a></a><a></a>Kelly, its awful and you know how fucked I am in the head.<a></a><a></a> Both sides of me think its wrong.<a></a><a></a> I thought I could handle anything.<a></a><a></a> I was wrong.<a></a><a></a>
+
+<a></a><a></a><a></a><a></a><a></a>Sabrina<a></a>
+`;
+        
+letterDiv.innerHTML = ""; 
+            let i = 0;
+            function typeWriter() {
+                if (i < text.length) {
+                    letterDiv.innerHTML = text.slice(0, i + 1);
+                    i++;
+                    setTimeout(typeWriter, 15);
+                } else {
+                    setTimeout(() => {
+                        letterDiv.style.opacity = "0"; 
+                    }, 8000); 
+                }
+            }
+            typeWriter();
+        
+
+        setTimeout(() => {
+                overlayText.style.display = "block"; 
+                setTimeout(() => {
+                    overlayText.style.opacity = 1; 
+                }, 100); 
+            }, 60000);
+
+        });
+        </script>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+
+                    window.speechSynthesis.cancel();
+                    let audioFiles = [
+
+                        {
+                            file: "ssf.wav",
+                            volume: 0.4,        
+                            playbackRate: 1,    
+                            delay: 40000,        //ms
+                        },
+                        {
+                            file: "gaza.wav",
+                            volume: 0.4,        
+                            playbackRate: 1,    
+                            delay: 48000,        //ms 
+                        }
+
+                    ];
+
+                    const text = `Oct 20, 03
+
+10:40pm
+
+Kelly,
+
+Okay, I don't like that anymore. At first it was funny but these people are going too far. I ended your letter last night because it was time to wake the MI prisoners and "mess with them" but it went too far even I can't handle whats going on. I cant get it out of my head. I walk down stairs after blowing the whistle and beating on the cells with an asp to find "the taxicab driver" handcuffed backwards to his window with some underwear over his head and face. He looked like Jesus Christ. At first I had to laugh so I went on and grabbed the camera and took a picture. One of the guys took my asp and started “poking” at his dick. Again I thought, okay that’s funny then it hit me, that’s a form of molestation. You can't do that. I took more pictures now to "record" what is going on. They started talking to this man and at first he was talking "I'm just a taxicab driver, I did nothing." He claims he'd never try to hurt US soldiers that he picked up the wrong people. Then he stopped talking. They turned the lights out and slammed the door and left him there while they went down to cell #4. This man had been so fucked that when they grabbed his foot through the cell bars he began screaming and crying. After praying to god he moans a constant short Ah, Ah every few seconds for the rest of the night. I don't know what they did to this guy. The first one remained handcuffed for maybe 11⁄2-2 hours until he started yelling with pain for god. So they went back in and handcuffed him to the top bunk on either side of the bed while he stood on the side. He was there for a little over an hour when he started yelling again for god. Not many people know this shit goes on. The only reason I want to be there is to get the pictures and prove that the US is not what they think. But I don't know if I can take it mentally. What if that was me in their shoes. These people will be our future terrorist. Kelly, its awful and you know how fucked I am in the head. Both sides of me think its wrong. I thought I could handle anything. I was wrong.
+
+Sabrina
+`;
+
+function playAudioWithDelay(audioInfo) {
+        const audio = new Audio(audioInfo.file);
+        audio.volume = audioInfo.volume || 1;  
+        audio.playbackRate = audioInfo.playbackRate || 1;
+
+        setTimeout(() => {
+            audio.play(); 
+        }, audioInfo.delay);
+
+    }
+    function speakText(textToSpeak) {
+        const utterance = new SpeechSynthesisUtterance(textToSpeak);
+        utterance.rate = 2.5; 
+        utterance.pitch = 1.6;
+        utterance.volume = .5;
+        utterance.lang = "en-US";
+        window.speechSynthesis.speak(utterance);
+        audioFiles.forEach((audioInfo) => {
+            playAudioWithDelay(audioInfo);
+        });
+    }
+
+    speakText(text);
+                });   
+    </script>
+        
+<script>
+
+</script>
+
+</body>
+</html>

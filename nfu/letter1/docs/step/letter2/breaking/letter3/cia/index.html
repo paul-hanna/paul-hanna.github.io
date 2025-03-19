@@ -1,0 +1,242 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>notes from underground</title>
+    <link rel="stylesheet" href="https://use.typekit.net/oxs8fdu.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+            body {
+            background: url('map.png') no-repeat center center fixed;
+            background-size: cover;
+            height: 100vh; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: rgb(0, 0, 0);
+            font-size: 2rem;
+            text-align: center;
+            overflow: hidden; 
+
+            }
+
+            .letter {
+                font-family: 'Courier New', Courier, monospace;
+                color: rgb(255, 0, 0);
+                font-size: large;
+                width: 120vw;
+                text-align: center;
+                white-space: pre-wrap;
+                padding: 10px;
+            }
+
+            button {
+                margin: 10px;
+                font-family: 'Courier New', Courier, monospace;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+                display: none;
+                border: 0;
+                background-color: black;
+                color: rgb(255, 0, 0);
+                font-size: large;
+            }
+
+            .quadrant {
+            position: absolute;
+            width: 50%;
+            height: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            padding: 20px;
+           }
+            .quadrant img {
+                max-width: 80%;
+                max-height: 80%;
+                object-fit: contain;
+                cursor: pointer;
+            }
+            #q1 { top: 0; left: 0; }
+            #q2 { top: 0; right: 0; }
+            #q3 { bottom: 0; left: 0; }
+            #q4 { bottom: 0; right: 0; }
+    </style>
+</head>
+<body>
+    <div class="letter"></div>
+    <div class="letter"></div>
+    <div id="q1" class="quadrant"><img id="img1" src="hood.png" alt=""></div>
+    <div id="q2" class="quadrant"><img id="img2" src="hood2.png" alt=""></div>
+    <div id="q3" class="quadrant"><img id="img3" src="hood3.png" alt=""></div>
+    <div id="q4" class="quadrant"><img id="img4" src="hood4.png" alt=""></div>
+
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const letterDiv = document.querySelector(".letter");
+
+
+            const text = `BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING`;
+            let playedVideos = 0; 
+            const totalVideos = buttons.length; 
+        
+            letterDiv.innerHTML = "";
+            let i = 0;
+
+            function typeWriter() {
+                if (i < text.length) {
+                    letterDiv.innerHTML = text.slice(0, i + 1);
+                    i++;
+                    setTimeout(typeWriter, 10);
+                } else {
+                    buttons.forEach(button => button.style.display = "inline-block");
+                }
+            }
+            typeWriter();
+
+            
+            });
+    
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+            window.speechSynthesis.cancel();
+            let audioFiles = [
+
+                {
+                    file: "radio.wav",
+                    volume: 0.2,        
+                    playbackRate: 1,    
+                    delay: 0,        //ms
+                },
+
+            ];
+
+            const text = `Alternative Interrogation Techniques (Wish List) 4Th  Infantry Division, ICE
+
+Open Hand Strikes (face and midsection) (no distance greater than 24 inches) 
+Fairly self-explanatory. 
+
+Pressure Point Manipulation 
+Manipulation of specific points on the human body can cause acute temporary pain but cause no long term effects or. damage. 
+
+Close Quarter Confinement 
+Confinement of subject in extremely close quarters. Discomfort induces compliance and cooperation. 
+
+White Noise Exposure 
+Overexposure of subject to noise found to be meaningless and many times monotonous to subject. Often used in conjunction with Sleep Deprivation. 
+
+Sleep Deprivation 
+An initial period of total deprivation (usually 12 to 24 hours) followed by regular and irregular sleep patterns over several days. 
+
+Stimulus Deprivation 
+The human mind requires stimulation, however small, to maintain resistance to suggestion, mental and emotional manipulation and self will. Subject is deprived of this stimulation for 12 to 24 hours during initial stages. Effects on subject's resistance are monitored with short intense interrogations (15-60 minutes at most). Subject's resistance will usually rapidly decay after 36 to 48 hours. This technique requires no physical pressure to be applied. However, subject must be carefully monitored. 
+
+*There area number of "coercive" techniques that may be employed that cause no permanent harm to the subject. These techniques, however, often call for medical personnel to be on call for unforeseen complications. They include but are not limited to the following: 
+Phone Book Strikes 
+Low Voltage Electrocution 
+Closed-Fist Strikes 
+Muscle Fatigue Inducement 
+`;
+
+function playAudioWithDelay(audioInfo) {
+const audio = new Audio(audioInfo.file);
+audio.volume = audioInfo.volume || 1;  
+audio.playbackRate = audioInfo.playbackRate || 1;
+
+setTimeout(() => {
+    audio.play(); 
+}, audioInfo.delay);
+
+}
+function speakText(textToSpeak) {
+const utterance = new SpeechSynthesisUtterance(textToSpeak);
+utterance.rate = .7; 
+utterance.pitch = 0;
+utterance.volume = .5;
+utterance.lang = "en-GB";
+window.speechSynthesis.speak(utterance);
+audioFiles.forEach((audioInfo) => {
+    playAudioWithDelay(audioInfo);
+});
+}
+
+speakText(text);
+        }
+
+);   
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const quadrants = [
+            { id: 'img1', sound: 'hood.wav', image: 'hood.png' },
+            { id: 'img2', sound: 'hood2.wav', image: 'hood2.png' },
+            { id: 'img3', sound: 'hood3.wav', image: 'hood3.png' },
+            { id: 'img4', sound: 'hood4.wav', image: 'hood4.png' }
+        ];
+        
+        let remainingImages = quadrants.length;
+            let allLoaded = false;
+            
+            function flashImagesWithDelay() {
+                let delay = 5000; // Initial delay before starting
+                quadrants.forEach((quad, i) => {
+                    setTimeout(() => {
+                        const imgElement = document.getElementById(quad.id);
+                        const parentDiv = imgElement.parentElement;
+                        imgElement.src = quad.image;
+                        parentDiv.style.opacity = 1;
+
+                        const audio = new Audio(quad.sound);
+                        audio.play();
+
+                        if (i === quadrants.length - 1) {
+                            setTimeout(() => {
+                                allLoaded = true;
+                                quadrants.forEach(q => {
+                                    document.getElementById(q.id).style.cursor = "pointer";
+                                });
+                            }, 1000);
+                        }
+                    }, delay);
+                    delay += 4000; // Delay between each photo
+                });
+            }
+            
+            function setupClickEvents() {
+                quadrants.forEach(quad => {
+                    const imgElement = document.getElementById(quad.id);
+                    const parentDiv = imgElement.parentElement;
+                    imgElement.addEventListener("click", function () {
+                        if (!allLoaded) return;
+                        const clickSound = new Audio("scream.wav");
+                        clickSound.play();
+                        parentDiv.style.opacity = 0;
+                        remainingImages--;
+                        if (remainingImages === 0) {
+                            window.location.href = "letter4/index.html"; // Change to desired next page
+                        }
+                    });
+                });
+            }
+            
+            setTimeout(() => {
+                flashImagesWithDelay();
+                setupClickEvents();
+            }, 5000); // Start after an initial delay
+        });
+</script>
+</body>
+</html>

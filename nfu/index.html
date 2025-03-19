@@ -1,0 +1,67 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>notes from underground</title>
+    <link rel="stylesheet" href="https://use.typekit.net/oxs8fdu.css">
+    <style>
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 100vh; 
+    margin: 0;
+    background-color: #000000; 
+    overflow: hidden; 
+
+}
+
+.letter {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: large;
+    width: 50vw;
+    max-width: 600px; 
+    text-align: left;
+    white-space: pre-wrap; 
+    position: relative; 
+    padding: 10px; 
+    color: white;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+    </style>
+</head>
+<body>
+
+    <div class="letter"></div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const letterDiv = document.querySelector(".letter");
+            const text = `This experience contains disturbing allusions to and graphic depictions of violence, as well as brief instances of flashing lights.<br><br><br>
+            <a href="letter1/index.html" style="color: red;">> I understand.</a>`;
+        
+            letterDiv.innerHTML = ""; // Clear initial content
+        
+            let i = 0;
+            
+            function typeWriter() {
+                if (i < text.length) {
+                    letterDiv.innerHTML = text.slice(0, i + 1); // Reveal one character at a time
+                    i++;
+                    setTimeout(typeWriter, 33); // Adjust speed here
+                }
+            }
+        
+            typeWriter();
+        });
+        </script>
+
+
+</body>
+</html>

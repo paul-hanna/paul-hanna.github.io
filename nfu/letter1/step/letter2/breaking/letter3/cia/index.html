@@ -58,12 +58,23 @@
             opacity: 0;
             padding: 20px;
            }
-            .quadrant img {
+                .quadrant img {
                 max-width: 80%;
                 max-height: 80%;
                 object-fit: contain;
+                cursor: default; 
+                transition: transform 0.2s ease, opacity 0.2s ease;
+            }
+
+            .quadrant img.clickable {
                 cursor: pointer;
             }
+
+            .quadrant img.clickable:hover {
+                transform: scale(1.05); 
+                opacity: 0.9; 
+    }
+            
             #q1 { top: 0; left: 0; }
             #q2 { top: 0; right: 0; }
             #q3 { bottom: 0; left: 0; }
@@ -186,57 +197,66 @@ speakText(text);
             { id: 'img3', sound: 'hood3.wav', image: 'hood3.png' },
             { id: 'img4', sound: 'hood4.wav', image: 'hood4.png' }
         ];
-        
+    
         let remainingImages = quadrants.length;
-            let allLoaded = false;
-            
-            function flashImagesWithDelay() {
-                let delay = 5000; // Initial delay before starting
-                quadrants.forEach((quad, i) => {
-                    setTimeout(() => {
-                        const imgElement = document.getElementById(quad.id);
-                        const parentDiv = imgElement.parentElement;
-                        imgElement.src = quad.image;
-                        parentDiv.style.opacity = 1;
-
-                        const audio = new Audio(quad.sound);
-                        audio.play();
-
-                        if (i === quadrants.length - 1) {
-                            setTimeout(() => {
-                                allLoaded = true;
-                                quadrants.forEach(q => {
-                                    document.getElementById(q.id).style.cursor = "pointer";
-                                });
-                            }, 1000);
-                        }
-                    }, delay);
-                    delay += 4000; // Delay between each photo
-                });
-            }
-            
-            function setupClickEvents() {
-                quadrants.forEach(quad => {
+        let allLoaded = false;
+        let lastImageShown = false;
+    
+        function flashImagesWithDelay() {
+            let delay = 5000; // Initial delay before starting
+            quadrants.forEach((quad, i) => {
+                setTimeout(() => {
                     const imgElement = document.getElementById(quad.id);
                     const parentDiv = imgElement.parentElement;
-                    imgElement.addEventListener("click", function () {
-                        if (!allLoaded) return;
-                        const clickSound = new Audio("scream.wav");
-                        clickSound.play();
-                        parentDiv.style.opacity = 0;
-                        remainingImages--;
-                        if (remainingImages === 0) {
-                            window.location.href = "letter4/index.html"; // Change to desired next page
-                        }
-                    });
-                });
-            }
-            
-            setTimeout(() => {
-                flashImagesWithDelay();
-                setupClickEvents();
-            }, 5000); // Start after an initial delay
-        });
-</script>
-</body>
+                    imgElement.src = quad.image;
+                    parentDiv.style.opacity = 1;
+    
+                    const audio = new Audio(quad.sound);
+                    audio.play();
+    
+                    if (i === quadrants.length - 1) {
+                        // Mark when the last image has appeared and sound has played
+                        audio.onended = () => {
+                            lastImageShown = true;
+                            quadrants.forEach(q => {
+                                document.getElementById(q.id).classList.add("clickable");
+                            });
+                        };
+                    }
+                }, delay);
+                delay += 4000; // Delay between each photo
+            });
+        }
+    
+        function setupClickEvents() {
+            quadrants.forEach(quad => {
+                const imgElement = document.getElementById(quad.id);
+                const parentDiv = imgElement.parentElement;
+    
+                imgElement.classList.remove("clickable");
+    
+                imgElement.addEventListener("click", function () {
+                    if (!lastImageShown) return; 
+    
+                    const clickSound = new Audio("scream.wav");
+                    clickSound.play();
+                    parentDiv.style.opacity = 0;
+    
+                    imgElement.classList.remove("clickable"); 
+                    remainingImages--;
+    
+                    if (remainingImages === 0) {
+                        window.location.href = "letter4/index.html"; e
+                    }
+                }); 
+            });
+        }
+    
+        setTimeout(() => {
+            flashImagesWithDelay();
+            setupClickEvents();
+        }, 5000); // Start after an initial delay
+    });
+    </script>
+    </body>
 </html>

@@ -45,17 +45,17 @@ body {
 
 Kelly,<a></a><a></a>
 
-The lights went out in the prison so here we were in the dark—in the prison.<a></a><a></a> I have watch of the 18 and younger boys.<a></a><a></a> I hear,<a></a> misses! Misses!<a></a><a></a> I go downstairs and flash my light on this 16 year old sitting down with his sandal smacking ants.<a></a><a></a> Now these ants are Iraqi ants,<a></a> LARGE!<a></a><a></a> So large they could carry the family dog away while giving you the finger!<a></a><a></a> LARGE. And this poor boy is being attacked by hundreds.<a></a><a></a> All the ants in the prison came to this one boys cell and decided to take over.<a></a><a></a> All I could do was spray Lysol.<a></a><a></a> The ants laughed at me and kept going.<a></a><a></a> So here we were the boy on one side of the cell and me on the other in the dark with one small flashlight beating ants with our shoes. . . .<a></a><a></a><a></a> Poor kids.<a></a><a></a> Those ants even Im scared of.<a></a><a></a>
+The lights went out in the prison so here we were in the dark—in the prison.<a></a><a></a> I have watch of the 18 and younger boys.<a></a><a></a> I hear,<a></a> misses! Misses!<a></a><a></a> I go downstairs and flash my light on this 16 year old sitting down with his sandal smacking ants.<a></a><a></a> Now these ants are Iraqi ants,<a></a> LARGE!<a></a><a></a> So large they could carry the family dog away while giving you the finger!<a></a><a></a> LARGE. And this poor boy is being attacked by hundreds.<a></a><a></a> All the ants in the prison came to this one boys cell and decided to take over.<a></a><a></a> All I could do was spray Lysol.<a></a><a></a> The ants laughed at me and kept going.<a></a><a></a> So here we were the boy on one side of the cell and me on the other in the dark with one small flashlight beating ants with our shoes. . . .<a></a><a></a> Poor kids.<a></a><a></a> Those ants even Im scared of.<a></a><a></a>
 
-So that was the start of my shift.<a></a><a></a> They’ve been stripping “the fucked up” prisoners and handcuffing them to the bars.<a></a><a></a> Its pretty sad.<a></a><a></a> I get to laugh at them and throw corn at them.<a></a><a></a> I kind of feel bad for these guys even if they are accused of killing US soldiers.<a></a><a></a> We degrade them but we don’t hit and thats a plus even though Im sure they wish we’d kill them.<a></a><a></a> They sleep one hour then we yell and wake them—make them stay up for one hour, then sleep one hour—then up etc.<a></a><a></a>  This goes on for 72 hours while we fuck with them.<a></a><a></a> Most have been so scared they piss on themselves.<a></a><a></a> Its sad.<a></a><a></a> It’s a little worst than Basic training ie: being naked and handcuffed. . . .<a></a><a></a><a></a><a></a>
+So that was the start of my shift.<a></a> They’ve been stripping “the fucked up” prisoners and handcuffing them to the bars.<a></a><a></a> Its pretty sad.<a></a><a></a> I get to laugh at them and throw corn at them.<a></a> I kind of feel bad for these guys even if they are accused of killing US soldiers.<a></a><a></a> We degrade them but we don’t hit and thats a plus even though Im sure they wish we’d kill them.<a></a><a></a> They sleep one hour then we yell and wake them—make them stay up for one hour, then sleep one hour—then up etc.<a></a><a></a>  This goes on for 72 hours while we fuck with them.<a></a><a></a> Most have been so scared they piss on themselves.<a></a> Its sad.<a></a><a></a> It’s a little worst than Basic training ie: being naked and handcuffed. . . .<a></a><a></a>
 
 But pictures were taken,<a></a> you have to see them!<a></a><a></a> A sandbag was put over their heads while it was soaked in hot sauce.<a></a><a></a> Okay, that’s bad but these guys have info, we are trying to get them to talk,<a></a> that’s all, we don’t do this to all prisoners,<a></a> just the few we have which is about 30-40 not many.<a></a><a></a>
 
-The othernight at 3, when I wrote you, the firefight . . .<a></a><a></a><a></a> 3 killed 6 injured—Iraqis. . . .<a></a><a></a><a></a>
+The othernight at 3, when I wrote you, the firefight . . .<a></a><a></a> 3 killed 6 injured—Iraqis. . . .<a></a><a></a>
 
-Its time to wake them again!!!<a></a><a></a><a></a>
+Its time to wake them again!!!<a></a><a></a>
 
-<a></a><a></a><a></a><a href="cia/index.html" style="color: red;">Sabrina</a><a></a>`;
+<a href="cia/index.html" style="color: red;">Sabrina</a><a></a>`;
         
             letterDiv.innerHTML = ""; 
         
@@ -65,7 +65,7 @@ Its time to wake them again!!!<a></a><a></a><a></a>
                 if (i < text.length) {
                     letterDiv.innerHTML = text.slice(0, i + 1);
                     i++;
-                    setTimeout(typeWriter, 28);
+                    setTimeout(typeWriter, 27.5);
                 }
             }
         
@@ -80,10 +80,16 @@ Its time to wake them again!!!<a></a><a></a><a></a>
                     let audioFiles = [
 
                         {
-                            file: "docs/sound/milhel.wav",
-                            volume: 0.4,        
+                            file: "bugs.wav",
+                            volume: 0.2,        
                             playbackRate: .7,    
-                            delay: 0,        //ms
+                            delay: 10000,        //ms
+                        },
+                        {
+                            file: "alarm.wav",
+                            volume: 0.2,        
+                            playbackRate: .7,    
+                            delay: 40000,        //ms
                         },
 
                     ];
@@ -99,7 +105,9 @@ But pictures were taken, you have to see them! A sandbag was put over their head
 
 The othernight at 3, when I wrote you, the firefight . . . 3 killed 6 injured—Iraqis. . . .
 
-Its time to wake them again!!!`;
+Its time to wake them again!!!
+
+Sabrina`;
 
 function playAudioWithDelay(audioInfo) {
         const audio = new Audio(audioInfo.file);
@@ -113,7 +121,7 @@ function playAudioWithDelay(audioInfo) {
     }
     function speakText(textToSpeak) {
         const utterance = new SpeechSynthesisUtterance(textToSpeak);
-        utterance.rate = 1.4; 
+        utterance.rate = 1.6; 
         utterance.pitch = 1.9;
         utterance.volume = .5;
         utterance.lang = "en-US";

@@ -40,19 +40,19 @@ body {
     <script>
         document.addEventListener("DOMContentLoaded", function () {
             const letterDiv = document.querySelector(".letter");
-            const text = `KELLY,<a></a><a></a><a></a>
+            const text = `KELLY,<a></a>
 
 The days are long here,<a></a> 12 hour shifts.<a></a><a></a><a></a> The prison has been quiet for the past two nights.<a></a><a></a> The night before that another IED went off.<a></a><a></a> No one was killed but it destroyed another Hmvv.<a></a><a></a>
 
 None of our unit has been in the mix of the mortars or IEDs.<a></a><a></a> Not yet.<a></a><a></a> Im afraid to leave the prison to go south to use the phones,<a></a><a></a> they plant those IEDs on the roads and set them off as you pass.<a></a><a></a> The sound is unforgettable. . . .<a></a><a></a><a></a>
 
-The prisoners we have range from theft to murder of a US soldier.<a></a><a></a> Until Redcross came we had prisoners the MI put in womens panties trying to get them to talk.<a></a><a></a> Pretty funny but they say it was “cruel.”<a></a><a></a> I don’t think so.<a></a><a></a> No physical harm was done.<a></a><a></a> We’ve even got Sadams sons body guard here. . . .<a></a><a></a> Boy did he fail his job.<a></a><a></a> It sucks working with the prisoners because they all have something wrong.<a></a><a></a> We have people with rashes on their bodies and who-ever is in the cell with them start to get it. . . .<a></a><a></a><a></a>
+The prisoners we have range from theft to murder of a US soldier.<a></a><a></a> Until Redcross came we had prisoners the MI put in womens panties trying to get them to talk.<a></a><a></a> Pretty funny but they say it was “cruel.”<a></a><a></a> I don’t think so.<a></a><a></a> No physical harm was done.<a></a><a></a> We’ve even got Sadams sons body guard here. . . .<a></a><a></a> Boy did he fail his job.<a></a><a></a> It sucks working with the prisoners because they all have something wrong.<a></a><a></a> We have people with rashes on their bodies and who-ever is in the cell with them start to get it. . . .<a></a><a></a>
 
 I spoke too soon, its 3am, there’s a firefight outside.<a></a><a></a> Its never going to be calm here! We have guys with TB!<a></a><a></a> That sucks cause we can catch that.<a></a><a></a> Some have STDs. <a></a><a></a>You name it. <a></a><a></a>Its just dirty!<a></a><a></a>
 
 The food sucks.<a></a><a></a> I live off cup o noodles, <a></a>that’s my meals.<a></a><a></a> The meals they serve are T-REX which is out of a box. <a></a><a></a>If I do come home,<a></a> boy am I going to eat!<a></a>
 
-<a></a><a></a><a></a><a></a><a></a><a></a><a href="breaking/index.html" style="color: red;">Sabrina</a>
+<a></a><a></a><a></a><a></a><a href="breaking/index.html" style="color: red;">Sabrina</a>
 
 
 `;
@@ -65,7 +65,7 @@ The food sucks.<a></a><a></a> I live off cup o noodles, <a></a>that’s my meals
                 if (i < text.length) {
                     letterDiv.innerHTML = text.slice(0, i + 1); // Reveal one character at a time
                     i++;
-                    setTimeout(typeWriter, 33); // Adjust speed here
+                    setTimeout(typeWriter, 29.5); // Adjust speed here
                 }
             }
         
@@ -80,10 +80,10 @@ The food sucks.<a></a><a></a> I live off cup o noodles, <a></a>that’s my meals
                     let audioFiles = [
 
                         {
-                            file: "docs/sound/milhel.wav",
-                            volume: 0.4,        
+                            file: "shootout.mp3",
+                            volume: 0.1,        
                             playbackRate: .7,    
-                            delay: 0,        //ms
+                            delay: 20000,        //ms
                         },
 
                     ];

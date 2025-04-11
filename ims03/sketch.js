@@ -34,7 +34,7 @@ function setup() {
   mic.start();
 
   initStache();
-  flashStartTime = millis();
+//  flashStartTime = millis();
 }
 
 function noScroll() {

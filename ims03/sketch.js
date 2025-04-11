@@ -21,7 +21,7 @@ function setup() {
   angleMode(DEGREES);
   noScroll();
 
-  // URL parameters
+  // url parameters
   //hatColor=color&growthSpeed=number
 
   let params = getURLParams();
@@ -34,7 +34,7 @@ function setup() {
   mic.start();
 
   initStache();
-//  flashStartTime = millis();
+  flashStartTime = millis();
 }
 
 function noScroll() {
@@ -61,22 +61,22 @@ function initStache() {
 }
 
 function draw() {
-//  if (!flash && millis() - flashStartTime > 10000) {
-  //  flash = true;
-   // currentBgColor = color(random(255), random(255), random(255));
- // }
+  if (!flash && millis() - flashStartTime > 10000) {
+    flash = true;
+    currentBgColor = color(random(255), random(255), random(255));
+  }
 
-  //if (flash) {
- //   if (frameCount % 33 === 0) {
-   //   currentBgColor = color(random(255), random(255), random(255));
-   // }
-   // background(currentBgColor);
- // } else {
-  //  background(255);
- // }
+  if (flash) {
+    if (frameCount % 33 === 0) {
+      currentBgColor = color(random(255), random(255), random(255));
+    }
+    background(currentBgColor);
+  } else {
+    background(255);
+  }
 
-//  if (millis() - flashStartTime > 10000 && !audio.isPlaying()) {
-  //  audio.play();
+ // if (millis() - flashStartTime > 10000 && !audio.isPlaying()) {
+ //   audio.play();
  // }
 
   drawFace();
@@ -147,7 +147,7 @@ function growHandlebar(path, direction) {
     step.setMag(growthSpeed);
     let newPos = p5.Vector.add(last.pos, step);
 
-    // get mic volume and map to stroke weight. ai help
+    // mic volume to stroke weight. use ai help because man.
     let vol = mic.getLevel();
     let sw = map(vol, 0, 0.01, 4, 20);
     sw = constrain(sw, 1, 20);

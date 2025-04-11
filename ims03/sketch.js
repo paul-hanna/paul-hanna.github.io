@@ -61,10 +61,10 @@ function initStache() {
 }
 
 function draw() {
-  if (!flash && millis() - flashStartTime > 10000) {
-    flash = true;
-    currentBgColor = color(random(255), random(255), random(255));
-  }
+//  if (!flash && millis() - flashStartTime > 10000) {
+  //  flash = true;
+   // currentBgColor = color(random(255), random(255), random(255));
+ // }
 
   //if (flash) {
  //   if (frameCount % 33 === 0) {

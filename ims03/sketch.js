@@ -66,18 +66,18 @@ function draw() {
     currentBgColor = color(random(255), random(255), random(255));
   }
 
-  if (flash) {
-    if (frameCount % 33 === 0) {
-      currentBgColor = color(random(255), random(255), random(255));
-    }
-    background(currentBgColor);
-  } else {
-    background(255);
-  }
+  //if (flash) {
+ //   if (frameCount % 33 === 0) {
+   //   currentBgColor = color(random(255), random(255), random(255));
+   // }
+   // background(currentBgColor);
+ // } else {
+  //  background(255);
+ // }
 
-  if (millis() - flashStartTime > 10000 && !audio.isPlaying()) {
-    audio.play();
-  }
+//  if (millis() - flashStartTime > 10000 && !audio.isPlaying()) {
+  //  audio.play();
+ // }
 
   drawFace();
   drawTopHat();

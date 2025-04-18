@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>waiting leaving</title>
   <style>
-    html, body { margin: 0; padding: 0; }
+    html, body { 
+      margin: 0; 
+      padding: 0;
+     }
     body.locked  { overflow: hidden; }
     body.unlocked{ overflow-y: auto; }
     html, body, * {
@@ -13,6 +16,7 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
+      
     }
 
     .sequence {
@@ -127,6 +131,13 @@
   </div>
 
   <script>
+        // disable the browser’s “restore scroll on reload” behavior
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual';
+    }
+    // immediately jump to top on first parse
+    window.scrollTo(0, 0);
+
     // ------- Helper for typing scroll-text -------
     function typeScrollText(el) {
       const full = el.textContent;
@@ -144,7 +155,8 @@
     window.addEventListener('DOMContentLoaded', () =>
       setTimeout(() => window.scrollTo(0, 0), 10)
     );
-
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  window.scrollTo(0, 0);
     window.onload = () => {
       const basePath = 'sequences',
             ext      = 'jpg',

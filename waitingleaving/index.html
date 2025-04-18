@@ -251,14 +251,16 @@ the infinite end.`,
         }
       });
 
-      // background audio unmute on first click
       const bgAudio = document.getElementById('bg-audio');
-      bgAudio.play().catch(() => {
-        document.addEventListener('click', () => {
+
+      bgAudio.play().catch(() => {/* ignore any errors */});
+
+      document.addEventListener('click', () => {
+        if (bgAudio.muted) {
           bgAudio.muted = false;
           bgAudio.play();
-        }, { once: true });
-      });
+        }
+      }, { once: true });
 
       // image-sequence state
       let currentSeq = 0,

@@ -214,7 +214,14 @@ the infinite end.`,
 
             const img = document.createElement('img');
             img.src = `${basePath}/sequence${s+1}/${String(i+1).padStart(3,'0')}.${ext}`;
-            img.style.transform = `translateX(${seq.imgOffset}px) scale(0.98)`;
+            // maximum random jiggle, in pixels
+            const maxJiggle = 20;
+
+            // compute a random offset around your base imgOffset
+            const randX = seq.imgOffset + (Math.random() * 2 - 1) * maxJiggle;
+            const randY = (Math.random() * 2 - 1) * maxJiggle;
+
+            img.style.transform = `translate(${randX}px, ${randY}px) scale(0.98)`;
 
             layer.appendChild(img);
             seqDiv.appendChild(layer);

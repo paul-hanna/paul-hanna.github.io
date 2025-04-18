@@ -8,6 +8,12 @@
     html, body { margin: 0; padding: 0; }
     body.locked  { overflow: hidden; }
     body.unlocked{ overflow-y: auto; }
+    html, body, * {
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+    }
 
     .sequence {
       position: relative;
@@ -60,10 +66,11 @@
     }
     /* swapped bottom:-10px → top:calc(100% - 10px) */
     .scroll-text.bottom-center {
-      top: calc(100% - 60px);
-      left: 50%;
-      transform: translateX(-50%);
-      bottom: auto;
+      top:    calc(100% - 60px);
+      width:  80%;            /* give it a fixed width */
+      left:   50%;
+      transform: translateX(0%);
+      bottom:    auto;
       text-align: left;
     }
 

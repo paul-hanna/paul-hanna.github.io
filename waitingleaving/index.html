@@ -611,9 +611,6 @@ function playFilmStrip(index, done) {
   const container = document.getElementById('main-container');
   const strip     = document.createElement('div');
   strip.className = 'sequence';
-  if (index === 7) {
-    strip.style.background = '#000';
-  }
   container.appendChild(strip);
 
   const layers = [];

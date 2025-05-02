@@ -1,425 +1,583 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>waiting leaving</title>
   <style>
-    html, body { 
-      margin: 0; 
+    html, body {
+      margin: 0;
       padding: 0;
-     }
-    body.locked  { overflow: hidden; }
-    body.unlocked{ overflow-y: auto; }
+    }
+    body.locked {
+      overflow: hidden;
+    }
+    body.unlocked {
+      overflow-y: auto;
+    }
     html, body, * {
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
-      
-    }
-
-    .sequence {
-      position: relative;
-      height: 100vh;
-      overflow: visible;
-      background: transparent;
-    }
-    .image-layer {
-      position: absolute; inset: 0;
-      display: flex; align-items: center; justify-content: center;
-      opacity: 0;
-    }
-    .image-layer img {
-      max-width: 60%; max-height: 60%; object-fit: contain;
-      transform: translateY(5px) scale(0.98);
-      cursor: default;
-    }
-    .image-layer.visible {
-      opacity: 1; transform: translateY(0) scale(1); z-index: 10;
-    }
-    .image-layer.visible img { cursor: pointer; }
-    .image-layer.previous {
-      opacity: 0.15; transform: translateY(0) scale(1); z-index: 1;
-    }
-
-    .scroll-text {
-      position: absolute;
-      font-family: "Courier New", monospace;
-      font-style: italic;
-      font-size: 20px;
-      color: #000;
-      opacity: 0;
-      pointer-events: none;
-      white-space: pre-wrap;
-      max-width: 80%;
-    }
-      /* swapped bottom:-100px → top:calc(100% - 100px) */
-      .scroll-text.bottom-right {
-      top: calc(100% - 100px);
-      right: 150px;
-      bottom: auto;
-      text-align: left;
-    }
-    /* swapped bottom:-70px → top:calc(100% - 70px) */
-    .scroll-text.bottom-left {
-      top: calc(100% - 70px);
-      left: 150px;
-      bottom: auto;
-      text-align: left;
-    }
-    /* swapped bottom:-10px → top:calc(100% - 10px) */
-    .scroll-text.bottom-center {
-      top:    calc(100% - 60px);
-      width:  80%;            /* give it a fixed width */
-      left:   50%;
-      transform: translateX(0%);
-      bottom:    auto;
-      text-align: left;
-    }
-
-    .video-sequence { position: relative; background: transparent; }
-    .video-wrapper {
-      position: sticky; top: 0; height: 100vh;
-      display: flex; justify-content: center; align-items: center;
-    }
-    .video-wrapper video {
-      max-width: 80%; max-height: 80%; object-fit: contain;
-      pointer-events: none;
     }
 
     .script-container {
       font-family: "Courier New", monospace;
-      font-size: 20px;
-      color: #000;
+      font-size: 18px;
       max-width: 80%;
-      margin: 100px auto;
-      padding: 20px;
-      white-space: pre-wrap;
-      line-height: 1.6;
+      margin: 40px auto;
+      padding: 10px;
+      line-height: 1.2;
+      white-space: pre-line;
     }
     .script-line {
       visibility: hidden;
-      margin-bottom: 20px;
-      cursor: default;
-      white-space: pre-wrap;
+      margin: 0;
+      padding: 0;
+      text-align: center;
     }
-    .script-line.visible { visibility: visible; }
+    .script-line.visible {
+      visibility: visible;
+    }
+    .script-line.action {
+      text-align: left;
+      margin-bottom: 8px;
+    }
+    .scene-heading {
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+    }
+    .character {
+      margin: 0;
+      padding: 0;
+      line-height: 1;
+      font-weight: bold;
+      text-align: center;
+      cursor: default;
+    }
+    .character.clickable {
+      text-decoration: underline dotted;
+      cursor: pointer;
+      color: #006;
+    }
+    .dialogue {
+      margin: 0 auto 12px;
+      padding: 0;
+      line-height: 1.4;
+      text-align: left;
+      max-width: 60ch;
+    }
 
     .cursor {
       display: inline-block;
       width: 1ch;
-      animation: blink 1s step-start infinite;
+      animation: blink 1.5s step-start infinite;
     }
-    @keyframes blink { 50% { opacity: 0; } }
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    .title-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: "Courier New", monospace;
+      font-size: 32px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    /* Film strip overlay */
+    .sequence {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60vmin;
+      height: 60vmin;
+      overflow: hidden;
+      z-index: 100;
+      background: transparent;
+    }
+    .image-layer {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+    }
+    .image-layer img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+    }
+    .image-layer.visible {
+      opacity: 1;
+      z-index: 10;
+    }
+    .image-layer.previous {
+      opacity: 0.15;
+      z-index: 1;
+    }
+
+    /* Scroll-wheel video overlay */
+    .video-sequence {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+      z-index: 100;
+      background: transparent;
+      display: flex;
+      flex-direction: column;
+    }
+    .scroll-hint {
+      position: absolute;
+      top: 10px;
+      width: 100%;
+      text-align: center;
+      color: #000;
+      font-family: "Courier New", monospace;
+      font-size: 16px;
+      pointer-events: none;
+      background-color: white;
+    }
+    .scroll-hint::after {
+      content: "▼";
+      display: block;
+      margin-top: 4px;
+      animation: moveDown infinite alternate;
+      background-color: white;
+    }
+    @keyframes moveDown {
+      from { transform: translateY(0); }
+      to { transform: translateY(8px); }
+    }
+    .video-wrapper {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      pointer-events: none;
+    }
+    .video-wrapper video {
+      max-width: 80%;
+      max-height: 80%;
+      object-fit: contain;
+      background: transparent;
+    }
+
+    .trigger-word {
+      text-decoration: underline solid;
+      cursor: pointer;
+      color: #006;
+    }
+    .trigger-word.clicked,
+    .character.clickable.clicked {
+      cursor: default;
+      text-decoration: none;
+      color: inherit;
+    }
   </style>
 </head>
 <body class="locked">
   <audio id="bg-audio" src="audio/waitingleaving.mp3" autoplay muted loop></audio>
+  <div id="title-screen" class="title-screen">Leaving Waiting</div>
+  <div id="main-container" style="display: none; position: relative;"></div>
+  <div id="script-sequence" class="script-container" style="display: none;">
+    <div class="script-line scene-heading">INT. LIVING ROOM - NIGHT</div><div class="script-line action">
+      THEO (early 20s, glasses) nervously makes a phone call. The ringback tone plays for a while. At the moment where he’d be redirected to voicemail, the call <span class="trigger-word" data-sequence="0">CONNECTS</span>. </div>
+    <div class="script-line action">The person who picks up is JANE (early 20s, straight-ish hair), Theo’s former <i>something</i>.</div>
+    <div class="script-line action">Theo doesn’t say anything--he didn’t think she’d pick up.</div>  
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Hello?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">(he can't bring himself to say anything)</div>
+    <div class="script-line action">Silence.</div>  
+    <div class="script-line character clickable">THEO (CONT'D)</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Hi, Jane...</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Theo... is everything okay? I mean, why’d you call?</div>
+    <div class="script-line action">
+      He doesn’t really know why he <span class="trigger-word" data-sequence="2">CALLED</span>.
+    </div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I, uh, I... I wanted to check in. See how you were doing, how things were goin-</div> 
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">I’d like you not to call again.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Jane, uh, sorry. I’m sorry. I wanted to see if you’d want to grab a coffee.</div>
+    <div class="script-line action">A beat.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">I don’t think that’s a good idea.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">It’s been a while.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">It hasn’t been that long... Despite the distance, you’ve never felt far enough.
+    </div>
+    <div class="script-line action">A beat. Theo looks out of his window. He doesn't know what he's looking for.</div>
+    <div class="script-line character">JANE (CONT'D)</div>
+    <div class="script-line dialogue">I’m going to hang up now.
+    </div>
+    <div class="script-line action">
+      Theo stares at his phone. A <span class="trigger-word" data-sequence="3">PIT</span> fills his stomach as he sits on his sofa, motionless, staring at his phone.
+    </div>
 
-  <div id="main-container"></div>
-
-  <div id="script-sequence" class="script-container">
-    <div class="script-line" data-step="0">I’ll holler it all into a few small lines </div>
-    <div
-      class="script-line"
-      data-step="1"
-      data-requires-click="true"
-      style="text-align: right; color: blue;"
-    ><u>please don't</u></div>
-    <div class="script-line" data-step="2">Estimated reading time: four minutes</div>
+    <div class="script-line scene-heading">EXT. FAR ROCKAWAY SHORE - DUSK</div>
+    <div class="script-line action">Theo walks along the shore.</div>
+    <div class="script-line action">He stops and stares at each horseshoe crab exoskeleton.</div>
+    <div class="script-line action">Then, he sits down, looking into the horizon as the sun sets.</div>
+      <div class="script-line action">The water stretches to the infinite end.</div>
+    <div class="script-line scene-heading">EXT. RIVERSIDE PARK - LATE AFTERNOON</div>
+    <div class="script-line action">Jane and Theo are sitting on a park bench, looking out into New Jersey. The Hudson audibly CRASHES onto the bank. It’s a windy day.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">You know, before Ryuichi Sakamoto died, he put together this playlist. His own funeral playlist, knowing he’d die soon. He couldn’t even listen to it as he intended.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">What would you put on your funeral playlist? I mean, assuming you knew you were dying.</div>
+    <div class="script-line action">Theo takes a moment to think about the question.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Well, maybe a requiem. Like John F. Kennedy. I think he had a full choir sing Mozart’s Requiem.</div>
+    <div class="script-line action">A beat.</div>
+    <div class="script-line character clickable">THEO (CONT'D)</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Or, well, someone probably chose it for him.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">You know Mozart died before he could finish his requiem? Sussmayr had to finish it because some noble wanted the “Mozart funeral playlist” for his wife.</div>
+    <div class="script-line action">A trumpeter begins warming up not too far from the bench.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Makes me wonder what music Mozart had at his funeral.</div>
+    <div class="script-line scene-heading">EXT. SUBWAY STOP - NIGHT</div>
+    <div class="script-line action">Theo and Jane stop in front of the Houston St 1 station. They’re standing face-to-face, taking each other’s hands, but not consciously.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Well, I think I ought to go catch this train. I’ve got an early flight.</div>
+    <div class="script-line action">Theo doesn’t say anything. He awkwardly kicks his feet. Jane doesn’t take another step towards the subway.</div>
+    <div class="script-line action">They’re looking right at each other. They’re both smiling.</div>
+    <div class="script-line action">Theo thinks, <i><b>I don’t want this to end.</i></b></div>
+    <div class="script-line action">Jane thinks, <i><b>I don’t want this to end.</b></i></div>
+    <div class="script-line action">They lean in and kiss. Their hearts are racing.</div>
+    <div class="script-line action">They stare at each other, <i><b>what happens now?</i></b></div>
+    <div class="script-line action">A beat.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Text me, okay? When you make it back.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Okay. I will.</div>
+    <div class="script-line action">Their hands separate. Theo watches Jane as she walks down the stairs into the station.</div>
+    <div class="script-line action">Theo walks home, down an unexpectedly empty Houston street.</div>
+    <div class="script-line action">He doesn’t know when, or if, he’ll see Jane again.</div>
+    <div class="script-line scene-heading">INT. BEDROOM - NIGHTTIME</div>
+    <div class="script-line action">It’s a hot summer night--it could be 10pm or 3am. Theo and Jane are lying in bed together, both splayed out and staring at the ceiling.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Were you ugly in middle school?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I mean, I was fat. I was the fat kid.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">You have this “ugly duckling” air to you.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">You’re saying I look like I used to be ugly.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">No, well, I think you have this swan-like nature to you, but that you aren’t really aware of it. Like it’s a new thing or something.</div>
+    <div class="script-line action">Theo looks over at Jane.</div>
+    <div class="script-line character">JANE (CONT'D)</div>
+    <div class="script-line dialogue">I don’t mean it in a bad way. I just think you’re not an asshole, when you definitely could be.</div>
+    <div class="script-line scene-heading">EXT. MINUTES AWAY FROM ATLANTIC TERMINAL - NIGHT</div>
+    <div class="script-line action">Theo and Jane are walking together down the sidewalk. They aren’t touching or holding hands.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">When’s your train leave again?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I should probably figure that out.</div>
+    <div class="script-line action">He checks his phone and his eyebrows shoot up.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Shit. It’s here in 15. The last one tonight.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">You should get going, then.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Yeah. I should run.</div>
+    <div class="script-line action">A beat.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Today was fun.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Yeah. I really enjoyed it.</div>
+    <div class="script-line action">They hug with no sense of urgency.</div>
+    <div class="script-line action">Theo sprints towards Atlantic Terminal.</div>
+    <div class="script-line scene-heading">INT. ATLANTIC TERMINAL - LATER</div>
+    <div class="script-line action">Theo calls Jane as he waits on the platform.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Hi! Did you make it on time?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Yes! I just barely did. The train is meant to be here in exactly two minutes.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">I waited right where we said goodbye. Just in case you missed your train.</div>
+    <div class="script-line action">A beat.</div>
+    <div class="script-line action"><i><b>They both wish Theo had missed his train.</b></i></div>
+    <div class="script-line action">The train arrives.</div>
+    <div class="script-line action">Theo boards and stands between cars.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I’ll text you when I make it home.</div>
+    <div class="script-line character">JANE</div>
+    <div class="script-line dialogue">Talk soon.</div>
+    <div class="script-line action">They hang up. Theo finds his seat.</div>
+    <div class="script-line action">Three very drunk commuters board the train. Each one is nursing a bottle of wine. Two of them, an older man and older woman, sit behind Theo. The third, a YOUNG WOMAN, sits right next to Theo.</div>
+    <div class="script-line character">YOUNG WOMAN</div>
+    <div class="script-line dialogue">I... l-like your hair!</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Uh, thanks.</div>
+    <div class="script-line character">YOUNG WOMAN</div>
+    <div class="script-line dialogue">Do you want some wine!?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I’m not-</div>
+    <div class="script-line character">YOUNG WOMAN</div>
+    <div class="script-line dialogue">We all work in wine imports. That’s why we have it! It’s... good!</div>
+    <div class="script-line action">She pulls out a disposable cup and pours Theo a glass of red wine. Her colleagues egg her on from behind her seat.</div>
+    <div class="script-line action">Theo takes a sip.</div>
+    <div class="script-line character">YOUNG WOMAN (CONT'D)</div>
+    <div class="script-line dialogue">L-let’s take a photo together.</div>
+    <div class="script-line action">She snaps a selfie of the two of them.</div>
+    <div class="script-line character">YOUNG WOMAN (CONT'D)</div>
+    <div class="script-line dialogue">Do you want to get drinks with me tomorrow...?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I’m flattered but-</div>
+    <div class="script-line action">She leans in, closer to Theo.</div>
+    <div class="script-line character">YOUNG WOMAN</div>
+    <div class="script-line dialogue">BUT!?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">But I’ve got a busy day. I’ll be busy. I’m sorry.</div>
+    <div class="script-line character">YOUNG WOMAN</div>
+    <div class="script-line dialogue">Too much time until then, right? What stop are you getting off at?</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">Far Rockaway, I think.</div>
+    <div class="script-line character">YOUNG WOMAN</div>
+    <div class="script-line dialogue">Sooooo far. If you were closer I’d have gotten off with you. We could have done drinks TONIGHT.</div>
+    <div class="script-line character clickable">THEO</div>
+    <div class="script-line dialogue" data-type="you-dialogue">(sarcastically)
+      What a shame.</div>
+      <div class="script-line action">They ride for a little while longer. The young woman gets up at her stop with her coworkers and leaves the train, blowing Theo a kiss.</div>
+    <div class="script-line action">Theo sits alone in the train car.</div>
+    <div class="script-line action">The train keeps moving.</div>
+    <div class="script-line scene-heading">INT. JANE’S BEDROOM - TWILIGHT</div>
+    <div class="script-line action">Jane sits on the floor in an oversized T-shirt.</div>
+      <div class="script-line action">Her phone’s in front of her--she’s recording a voice message.</div>
+    <div class="script-line character clickable">JANE</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I don’t know if we can figure this thing out.</div>
+    <div class="script-line action">She shifts her weight.</div>
+    <div class="script-line character clickable">JANE (CONT'D)</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I keep thinking about what might’ve happened if you doubled back. You know, missed your train on purpose.</div>
+    <div class="script-line action">An airplane drones above.</div>
+    <div class="script-line character clickable">JANE (CONT'D)</div>
+    <div class="script-line dialogue" data-type="you-dialogue">I hope we can figure it out.</div>
+    <div class="script-line character clickable" id="the-end"><b><u>THE END</u></b></div>
   </div>
-
   <script>
-        // disable the browser’s “restore scroll on reload” behavior
+    const sequenceConfig = [
+      { frames: 14, path: 'sequences/sequence1', ext: 'jpg' },
+      { frames: 11, path: 'sequences/sequence2', ext: 'jpg' },
+      { frames: 15, path: 'sequences/sequence3', ext: 'jpg' },
+      { type: 'video', src: 'sequences/sequence4/001.mp4', duration: 10 },
+      { frames: 12, path: 'sequences/sequence5', ext: 'jpg' },
+      { type: 'video', src: 'sequences/sequence6/001.mp4', duration: 8 },
+      { frames: 10, path: 'sequences/sequence7', ext: 'jpg' },
+      { type: 'video', src: 'sequences/sequence8/001.mp4', duration: 5 },
+      { frames: 12, path: 'sequences/sequence9', ext: 'jpg' },
+    ];
+
+    const DEFAULT_DELAY = 2000;
+    const ACTION_DELAY  = 3000;
+
     if ('scrollRestoration' in history) {
       history.scrollRestoration = 'manual';
     }
-    // immediately jump to top on first parse
     window.scrollTo(0, 0);
-
-    // ------- Helper for typing scroll-text -------
-    function typeScrollText(el) {
-      const full = el.textContent;
-      el.textContent = '';
-      let i = 0;
-      const speed = 25;
-      const timer = setInterval(() => {
-        el.textContent += full.charAt(i++);
-        if (i >= full.length) clearInterval(timer);
-      }, speed);
-    }
-
-    // Reset scroll on unload/load
-    window.addEventListener('beforeunload', () => window.scrollTo(0, 0));
-    window.addEventListener('DOMContentLoaded', () =>
-      setTimeout(() => window.scrollTo(0, 0), 10)
-    );
-    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
-  window.scrollTo(0, 0);
-    window.onload = () => {
-      const basePath = 'sequences',
-            ext      = 'jpg',
-            fps      = 30,
-            scrollPerFrame = 20;
-
-      const sequenceConfig = [
-        {
-          type: 'images', count: 14,
-          text: `I could never
-picture how you’d
-tear through
-the envelope
-or if you’d
-leave it sitting
-upon your
-chestnut vanity.`,
-          position: 'bottom-right',
-          imgOffset: -170
-        },
-        {
-          type: 'images', count: 11,
-          text: `I’ve
-seen
-this
-before,
-brief
-glimpses
-of
-pictures
-on
-gallery
-walls.`,
-          position: 'bottom-left',
-          imgOffset: 70
-        },
-        {
-          type: 'images', count: 15,
-          text: `We can look up now,
-spotting our
-prismed faces
-stretching to
-the infinite end.`,
-          position: 'bottom-center',
-          imgOffset: -50
-        },
-        {
-          type: 'video',
-          src: 'sequences/sequence4/001.mp4',
-          duration: 10
-        }
-      ];
-
-      const container = document.getElementById('main-container');
-
-      // build sequences
-      sequenceConfig.forEach((seq, s) => {
-        if (seq.type === 'images') {
-          const seqDiv = document.createElement('div');
-          seqDiv.className = 'sequence';
-          seqDiv.dataset.seq = s;
-
-          for (let i = 0; i < seq.count; i++) {
-            const layer = document.createElement('div');
-            layer.className = 'image-layer';
-            layer.dataset.idx = i;
-
-            const img = document.createElement('img');
-            img.src = `${basePath}/sequence${s+1}/${String(i+1).padStart(3,'0')}.${ext}`;
-            // maximum random jiggle, in pixels
-            const maxJiggle = 20;
-
-            // compute a random offset around your base imgOffset
-            const randX = seq.imgOffset + (Math.random() * 2 - 1) * maxJiggle;
-            const randY = (Math.random() * 2 - 1) * maxJiggle;
-
-            img.style.transform = `translate(${randX}px, ${randY}px) scale(0.98)`;
-
-            layer.appendChild(img);
-            seqDiv.appendChild(layer);
-          }
-
-          const textDiv = document.createElement('div');
-          textDiv.className = `scroll-text ${seq.position}`;
-          textDiv.textContent = seq.text;
-          seqDiv.appendChild(textDiv);
-
-          container.appendChild(seqDiv);
-        }
-
-        if (seq.type === 'video') {
-          const videoSection = document.createElement('div');
-          videoSection.className = 'video-sequence';
-          const totalFrames = seq.duration * fps;
-          videoSection.style.height = `${totalFrames * scrollPerFrame + window.innerHeight}px`;
-
-          const wrapper = document.createElement('div');
-          wrapper.className = 'video-wrapper';
-
-          const video = document.createElement('video');
-          video.src = seq.src;
-          video.muted = true;
-          video.playsInline = true;
-          video.preload = 'auto';
-
-          wrapper.appendChild(video);
-          videoSection.appendChild(wrapper);
-          container.appendChild(videoSection);
-
-          window.addEventListener('scroll', () => {
-            const start     = videoSection.offsetTop;
-            const scrollPos = window.scrollY - start;
-            const frame     = Math.floor(
-              Math.max(0, Math.min(scrollPos / scrollPerFrame, totalFrames))
-            );
-            video.currentTime = frame / fps;
-          });
-        }
+    ['beforeunload', 'DOMContentLoaded'].forEach(evt => {
+      window.addEventListener(evt, () => {
+        setTimeout(() => window.scrollTo(0, 0), 10);
       });
+    });
 
-      const bgAudio = document.getElementById('bg-audio');
-
-      bgAudio.play().catch(() => {/* ignore any errors */});
-
-      document.addEventListener('click', () => {
-        if (bgAudio.muted) {
-          bgAudio.muted = false;
-          bgAudio.play();
-        }
-      }, { once: true });
-
-      // image-sequence state
-      let currentSeq = 0,
-          currentImg = 0,
-          mode       = 'reveal',
-          maxScroll  = 0;
-
-      const sequences = document.querySelectorAll('.sequence'),
-            vh        = window.innerHeight;
-
-      updateLayers();
-      document.addEventListener('click', handleAdvance);
-      document.addEventListener('keydown', e => {
-        if (e.code === 'Space') {
-          e.preventDefault();
-          handleAdvance();
-        }
-      });
-      window.addEventListener('scroll', onScroll);
-
-      function handleAdvance() {
-        if (mode !== 'reveal') return;
-        const layers = sequences[currentSeq].querySelectorAll('.image-layer');
-        if (currentImg < layers.length - 1) {
-          currentImg++;
-          updateLayers();
-        }
+    const bgAudio = document.getElementById('bg-audio');
+    bgAudio.play().catch(() => {});
+    document.addEventListener('click', () => {
+      if (bgAudio.muted) {
+        bgAudio.muted = false;
+        bgAudio.play();
       }
+    }, { once: true });
 
-      function onScroll() {
-        const st = window.scrollY;
-        if (st > maxScroll) {
-          maxScroll = st;
-        } else {
-          window.scrollTo(0, maxScroll);
-        }
-        if (mode === 'waiting' && st >= (currentSeq + 1) * vh) {
-          startNext();
-        }
-      }
-
-      function startNext() {
-        currentSeq++;
-        currentImg = 0;
-        mode       = 'reveal';
-        updateLayers();
-        window.scrollTo(0, currentSeq * vh);
-        document.body.classList.replace('unlocked', 'locked');
-        maxScroll = currentSeq * vh;
-      }
-
-      function updateLayers() {
-        const layers  = sequences[currentSeq].querySelectorAll('.image-layer');
-        const textDiv = sequences[currentSeq].querySelector('.scroll-text');
-
-        layers.forEach((l, i) => {
-          l.classList.remove('visible', 'previous');
-          if (i < currentImg)    l.classList.add('previous');
-          if (i === currentImg) l.classList.add('visible');
-        });
-
-        if (textDiv) {
-          // when last image is reached, unlock & type text once
-          if (currentImg === layers.length - 1) {
-            if (!textDiv.dataset.typed) {
-              textDiv.dataset.typed = 'true';
-              textDiv.style.opacity = 1;
-              typeScrollText(textDiv);
-            }
-            document.body.classList.replace('locked','unlocked');
-            mode = 'waiting';
-
-            const imgEl = sequences[currentSeq].querySelector('.image-layer.visible img');
-            if (imgEl) imgEl.style.cursor = 'default';
-          } else {
-            textDiv.style.opacity = 0;
-          }
-        }
-      }
-
+    document.getElementById('title-screen').onclick = () => {
+      document.getElementById('title-screen').style.display = 'none';
+      document.getElementById('main-container').style.display = 'block';
+      document.getElementById('script-sequence').style.display = 'block';
       setupScriptSequence();
     };
 
-    // ------- your existing typewriter for #script-sequence -------
     function setupScriptSequence() {
-      const container = document.querySelector('#script-sequence');
-      if (!container) return;
-      const lines = Array.from(container.querySelectorAll('.script-line'));
+      const lines = Array.from(document.querySelectorAll('.script-line'));
 
-      function typeLine(i) {
-        const line = lines[i];
-        if (!line) return;
-        const fullText = line.textContent;
-        line.textContent = '';
+      function show(index) {
+        if (index >= lines.length) return;
+        const line = lines[index];
         line.classList.add('visible');
         line.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        const cursor = document.createElement('span');
-        cursor.className = 'cursor';
-        cursor.textContent = '|';
-        line.appendChild(cursor);
+        if (line.id === 'the-end') {
+          line.addEventListener('click', playEndVideo);
+          return;
+        }
 
-        let charIndex = 0;
-        const speed = 25;
-        (function typeChar() {
-          if (charIndex < fullText.length) {
-            line.insertBefore(
-              document.createTextNode(fullText[charIndex++]),
-              cursor
-            );
-            setTimeout(typeChar, speed);
-          } else {
-            cursor.remove();
-            if (line.dataset.requiresClick === "true") {
-              line.style.cursor = 'pointer';
-              line.addEventListener('click', () => {
-                line.style.cursor = 'default';
-                typeLine(i + 1);
-              }, { once: true });
-            }
+        if (line.classList.contains('action')) {
+          const trigger = line.querySelector('.trigger-word');
+          if (trigger) {
+            const handler = () => {
+              trigger.removeEventListener('click', handler);
+              trigger.classList.add('clicked');
+              const seq = sequenceConfig[+trigger.dataset.sequence];
+              if (seq.type === 'video') {
+                playVideoSequence(seq, () => show(index + 1));
+              } else {
+                playFilmStrip(+trigger.dataset.sequence, () => show(index + 1));
+              }
+            };
+            trigger.addEventListener('click', handler);
+            return;
           }
-        })();
+        }
+
+        if (line.classList.contains('clickable')) {
+          const clickHandler = () => {
+            line.removeEventListener('click', clickHandler);
+            line.classList.add('clicked');
+            const nextLine = lines[index + 1];
+            if (nextLine.dataset.type === 'you-dialogue') {
+              typeText(nextLine, () => show(index + 2));
+            } else {
+              show(index + 1);
+            }
+          };
+          line.addEventListener('click', clickHandler);
+          return;
+        }
+
+        const delay = line.classList.contains('action') ? ACTION_DELAY : DEFAULT_DELAY;
+        setTimeout(() => show(index + 1), delay);
       }
 
-      const observer = new IntersectionObserver(entries => {
-        if (entries[0].isIntersecting) {
-          observer.disconnect();
-          typeLine(0);
-          setTimeout(() => typeLine(1), 2500);
-        }
-      }, { threshold: 0.5 });
+      show(0);
+    }
 
-      observer.observe(container);
+    function typeText(element, callback) {
+      element.classList.add('visible');
+      const text = element.textContent;
+      element.textContent = '';
+      const cursor = document.createElement('span');
+      cursor.className = 'cursor';
+      cursor.textContent = '|';
+      element.appendChild(cursor);
+
+      let charIndex = 0;
+      function typeChar() {
+        if (charIndex < text.length) {
+          element.insertBefore(document.createTextNode(text[charIndex++]), cursor);
+          setTimeout(typeChar, 75);
+        } else {
+          cursor.remove();
+          callback();
+        }
+      }
+      typeChar();
+    }
+
+    function playFilmStrip(index, done) {
+      const config = sequenceConfig[index];
+      const container = document.getElementById('main-container');
+      const strip = document.createElement('div');
+      strip.className = 'sequence';
+      container.appendChild(strip);
+
+      const layers = [];
+      for (let i = 0; i < config.frames; i++) {
+        const layer = document.createElement('div');
+        layer.className = 'image-layer';
+        const img = document.createElement('img');
+        img.src = `${config.path}/${String(i + 1).padStart(3, '0')}.${config.ext}`;
+        layer.appendChild(img);
+        strip.appendChild(layer);
+        layers.push(layer);
+      }
+
+      let current = 0;
+      function nextFrame() {
+        layers.forEach((l, idx) => {
+          l.style.opacity = idx < current ? 0.15 : idx === current ? 1 : 0;
+        });
+        current++;
+        if (current < layers.length) {
+          setTimeout(nextFrame, 600);
+        } else {
+          setTimeout(() => {
+            container.removeChild(strip);
+            done();
+          }, 400);
+        }
+      }
+
+      nextFrame();
+    }
+
+    function playVideoSequence(seqConfig, done) {
+      const container = document.getElementById('main-container');
+      const vs = document.createElement('div');
+      vs.className = 'video-sequence';
+
+      const hint = document.createElement('div');
+      hint.className = 'scroll-hint';
+      hint.textContent = 'Use scroll wheel to play';
+      vs.appendChild(hint);
+
+      const wrapper = document.createElement('div');
+      wrapper.className = 'video-wrapper';
+      const video = document.createElement('video');
+      video.src = seqConfig.src;
+      video.muted = true;
+      video.preload = 'auto';
+      wrapper.appendChild(video);
+      vs.appendChild(wrapper);
+
+      container.appendChild(vs);
+      video.currentTime = 0;
+
+      const wheelHandler = e => {
+        e.preventDefault();
+        const delta = e.deltaY > 0 ? 1/30 : -1/30;
+        video.currentTime = Math.min(
+          seqConfig.duration,
+          Math.max(0, video.currentTime + delta)
+        );
+        if (video.currentTime >= seqConfig.duration) {
+          vs.removeEventListener('wheel', wheelHandler);
+          container.removeChild(vs);
+          done();
+        }
+      };
+      vs.addEventListener('wheel', wheelHandler, { passive: false });
+    }
+
+    function playEndVideo() {
+      const endVideo = document.createElement('video');
+      endVideo.src = 'sequences/end.mp4';
+      endVideo.autoplay = true;
+      endVideo.loop = true;
+      endVideo.controls = false;
+      Object.assign(endVideo.style, {
+        position: 'fixed',
+        top: '0',
+        left: '0',
+        width: '100%',
+        height: '100%',
+        objectFit: 'cover'
+      });
+      document.body.appendChild(endVideo);
     }
   </script>
 </body>

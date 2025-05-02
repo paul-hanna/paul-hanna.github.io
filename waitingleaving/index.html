@@ -387,6 +387,35 @@
       { frames: 4, path: 'sequences/sequence16', ext: 'jpg' }
     ];
 
+    function preloadAllImages(sequenceConfig) {
+      const loadPromises = [];
+
+      sequenceConfig.forEach(seq => {
+        // only handle image‑based sequences
+        if (seq.frames && seq.path && seq.ext) {
+          for (let i = 1; i <= seq.frames; i++) {
+            const img = new Image();
+            const filename = String(i).padStart(3, '0');
+            img.src = `${seq.path}/${filename}.${seq.ext}`;
+            
+            // wrap each load/error in a promise
+            loadPromises.push(new Promise(resolve => {
+              img.onload  = () => resolve();
+              img.onerror = () => resolve();  // resolve even on error
+            }));
+          }
+        }
+      });
+
+      // return a single promise that resolves when all frames are done
+      return Promise.all(loadPromises).then(() => {});
+    }
+
+    // Usage example: call this before you ever play any film‑strip
+    preloadAllImages(sequenceConfig).then(() => {
+      console.log('All images preloaded, ready to play film‑strips without flicker!');
+    });
+
     const DEFAULT_DELAY = 2000;
     const ACTION_DELAY  = 3000;
     const DEFAULT_TYPING_SPEED = 75;

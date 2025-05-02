@@ -177,7 +177,7 @@
     .trigger-word {
       text-decoration: underline solid;
       cursor: pointer;
-      color: #006;
+      color: rgb(0, 0, 173);
     }
     .trigger-word.clicked,
     .character.clickable.clicked {
@@ -192,9 +192,9 @@
   <div id="title-screen" class="title-screen">Leaving Waiting</div>
   <div id="main-container" style="display: none; position: relative;"></div>
   <div id="script-sequence" class="script-container" style="display: none;">
-    <div class="script-line scene-heading">INT. LIVING ROOM - NIGHT</div><div class="script-line action" data-sound="audio/connect-tone.mp3">
+    <div class="script-line scene-heading">INT. LIVING ROOM - NIGHT</div><div class="script-line action" data-sound="audio/connect-tone.mp3" data-delay="4000">
       THEO (early 20s, glasses) nervously makes a phone call. The ringback tone plays for a while. At the moment where he’d be redirected to voicemail, the call connects. </div>
-    <div class="script-line action">The person who picks up is JANE (early 20s, straight-ish hair), Theo’s former <i>something</i>.</div>
+    <div class="script-line action" data-delay="4000">The person who picks up is JANE (early 20s, straight-ish hair), Theo’s former <i>something</i>.</div>
     <div class="script-line action">Theo doesn’t say anything--he didn’t think she’d pick up.</div>  
     <div class="script-line character">JANE</div>
     <div class="script-line dialogue">Hello?</div>
@@ -225,12 +225,12 @@
     <div class="script-line dialogue">I’m going to hang up now.</div>
     <div class="script-line action">
       Theo stares at his phone. A <span class="trigger-word" data-sequence="1">pit</span> fills his stomach as he sits on his sofa, motionless, staring at his phone.</div>
-    <div class="script-line scene-heading">EXT. FAR ROCKAWAY SHORE - DUSK</div>
+    <div class="script-line scene-heading" data-scene-sound="audio/wavescrash.wav">EXT. FAR ROCKAWAY SHORE - DUSK</div>
     <div class="script-line action">Theo walks along the shore.</div>
     <div class="script-line action">He stops and stares at each horseshoe crab exoskeleton.</div>
     <div class="script-line action">Then, he sits down, looking into the horizon as the sun sets.</div>
     <div class="script-line action">The water stretches to the <span class="trigger-word" data-sequence="15">infinite end</span>.</div>
-    <div class="script-line scene-heading">EXT. RIVERSIDE PARK - LATE AFTERNOON</div>
+    <div class="script-line scene-heading" data-scene-sound="audio/birdnoise.wav">EXT. RIVERSIDE PARK - LATE AFTERNOON</div>
     <div class="script-line action">Jane and Theo are sitting on a park bench, looking out into New Jersey. The Hudson audibly <span class="trigger-word" data-sequence="2">crashes</span> onto the bank. It’s a windy day.</div>
     <div class="script-line character clickable">THEO</div>
     <div class="script-line dialogue" data-type="you-dialogue">You know, before Ryuichi Sakamoto died, he put together this playlist. His own funeral playlist, knowing he’d die soon. He couldn’t even listen to it as he intended.</div>
@@ -247,7 +247,7 @@
     <div class="script-line action">A trumpeter begins warming up not too far from the bench.</div>
     <div class="script-line character clickable">THEO</div>
     <div class="script-line dialogue" data-type="you-dialogue" data-delay="4000">Makes me wonder what music Mozart had at his funeral.</div>
-    <div class="script-line scene-heading">EXT. SUBWAY STOP - NIGHT</div>
+    <div class="script-line scene-heading" data-scene-sound="audio/citytraffic.wav">EXT. SUBWAY STOP - NIGHT</div>
     <div class="script-line action">Theo and Jane stop in front of the Houston St 1 station. They’re standing face-to-face, taking each other’s hands, but not <span class="trigger-word" data-sequence="12">consciously.</span></div>
     <div class="script-line character">JANE</div>
     <div class="script-line dialogue">Well, I think I ought to go catch this train. I’ve got an early flight.</div>
@@ -265,7 +265,7 @@
     <div class="script-line action faded">Their hands separate. Theo watches Jane as she walks down the stairs into the station.</div>
     <div class="script-line action">Theo walks home, down an unexpectedly <span class="trigger-word" data-sequence="8">empty</span> Houston street.</div>
     <div class="script-line action faded" data-delay="4000">He doesn’t know when, or if, he’ll see Jane again.</div>
-    <div class="script-line scene-heading">INT. BEDROOM - NIGHTTIME</div>
+    <div class="script-line scene-heading" data-scene-sound="audio/ceilingfan.wav">INT. BEDROOM - NIGHTTIME</div>
     <div class="script-line action">It’s a hot summer night--it could be 10pm or 3am. Theo and Jane are lying in bed together, both splayed out and staring at the ceiling.</div>
     <div class="script-line character">JANE</div>
     <div class="script-line dialogue">Were you ugly in middle school?</div>
@@ -280,7 +280,7 @@
     <div class="script-line action">Theo <span class="trigger-word" data-sequence="9">looks over</span> at Jane.</div>
     <div class="script-line character">JANE (CONT'D)</div>
     <div class="script-line dialogue" data-delay="4000">I don’t mean it in a bad way. I just think you’re not an asshole, when you definitely could be.</div>
-    <div class="script-line scene-heading">EXT. MINUTES AWAY FROM ATLANTIC TERMINAL - NIGHT</div>
+    <div class="script-line scene-heading" data-scene-sound="audio/citytraffic.wav">EXT. MINUTES AWAY FROM ATLANTIC TERMINAL - NIGHT</div>
     <div class="script-line action">Theo and Jane are walking together down the sidewalk. They aren’t touching or holding hands.</div>
     <div class="script-line character">JANE</div>
     <div class="script-line dialogue">When’s your train leave again?</div>
@@ -300,7 +300,7 @@
     <div class="script-line dialogue" data-type="you-dialogue">Yeah. I really enjoyed it.</div>
     <div class="script-line action">They hug with no sense of <span class="trigger-word" data-sequence="7">urgency.</span></div>
     <div class="script-line action" data-delay="4000">Theo sprints towards Atlantic Terminal.</div>
-    <div class="script-line scene-heading">INT. ATLANTIC TERMINAL - LATER</div>
+    <div class="script-line scene-heading" data-scene-sound="audio/trainstation.wav">INT. ATLANTIC TERMINAL - LATER</div>
     <div class="script-line action">Theo calls Jane as he waits on the platform.</div>
     <div class="script-line character">JANE</div>
     <div class="script-line dialogue">Hi! Did you make it on time?</div>
@@ -355,14 +355,14 @@
     <div class="script-line action" data-delay="4000">Theo sits alone in the train car.</div>
     <div class="script-line action" data-delay="4000">The train <span class="trigger-word" data-sequence="4">keeps moving.</span></div>
     <div class="script-line scene-heading">INT. JANE’S BEDROOM - TWILIGHT</div>
-    <div class="script-line action">Jane sits on the floor in an oversized T-shirt.</div>
+    <div class="script-line action" data-scene-sound="audio/ceilingfan.wav">Jane sits on the floor in an oversized T-shirt.</div>
       <div class="script-line action">Her phone’s in front of her--she’s <span class="trigger-word" data-sequence="11">recording</span> a voice message.</div>
     <div class="script-line character clickable">JANE</div>
     <div class="script-line dialogue" data-type="you-dialogue">I don’t know if we can figure this thing out.</div>
     <div class="script-line action">She shifts her weight.</div>
     <div class="script-line character clickable">JANE (CONT'D)</div>
     <div class="script-line dialogue" data-type="you-dialogue">I keep thinking about what might’ve happened if you doubled back. You know, missed your train on purpose.</div>
-    <div class="script-line action">An airplane <span class="trigger-word" data-sequence="13">drones</span> above.</div>
+    <div class="script-line action" dataset-sound="audio/airplane.wav">An airplane <span class="trigger-word" data-sequence="13">drones</span> above.</div>
     <div class="script-line character clickable">JANE (CONT'D)</div>
     <div class="script-line dialogue" data-type="you-dialogue">I hope we can figure it out.</div>
     <div class="script-line character clickable" id="the-end" data-delay="5000"><b><u>THE END</u></b></div>
@@ -413,8 +413,10 @@
 
     // Usage example: call this before you ever play any film‑strip
     preloadAllImages(sequenceConfig).then(() => {
-      console.log('All images preloaded, ready to play film‑strips without flicker!');
+      console.log('all loaded 8)');
     });
+
+    let currentSceneAudio = null;
 
     const DEFAULT_DELAY = 2000;
     const ACTION_DELAY  = 3000;
@@ -490,8 +492,25 @@ function shuffleScenes() {
       function show(index) {
         if (index >= lines.length) return;
         const line = lines[index];
+        if (line.classList.contains('scene-heading')) {
+        // stop any previous ambient
+        if (currentSceneAudio) {
+          currentSceneAudio.pause();
+          currentSceneAudio.currentTime = 0;
+        }
+        // start the new one (if declared)
+        if (line.dataset.sceneSound) {
+          currentSceneAudio = new Audio(line.dataset.sceneSound);
+          currentSceneAudio.loop = true;
+          currentSceneAudio.volume = 0.2;
+          currentSceneAudio.play();
+        } else {
+          currentSceneAudio = null;
+        }
+      }
         if (line.dataset.sound) {
           const cue = new Audio(line.dataset.sound);
+          cue.volume = 0.3;
           cue.play();
         }
         line.classList.add('visible');
@@ -592,6 +611,9 @@ function playFilmStrip(index, done) {
   const container = document.getElementById('main-container');
   const strip     = document.createElement('div');
   strip.className = 'sequence';
+  if (index === 7) {
+    strip.style.background = '#000';
+  }
   container.appendChild(strip);
 
   const layers = [];

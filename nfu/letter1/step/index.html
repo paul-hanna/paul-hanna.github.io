@@ -22,7 +22,7 @@
             position: relative;
             width: 100vw; 
             height: 100vh; 
-            cursor: pointer;
+            cursor: default;   
         }
         .foia{
             position: absolute;
@@ -32,12 +32,15 @@
             position: absolute;
             top: 50%;
             left: 50%;
-            transform: translate(-50%, -50%);        
+            transform: translate(-50%, -50%);       
+            cursor: default; 
+            -webkit-user-drag:none;
         }
         .foia.active {
             z-index: 10; 
             display: block;
             margin: auto;
+            cursor: pointer;
         }
 
         .foia-link {
@@ -73,6 +76,8 @@
             height: 100vh;
             z-index: 99999; 
             opacity: 1; 
+            -webkit-user-drag:none;
+
         }
 
         .morebut {
@@ -93,7 +98,27 @@
             cursor: pointer;
             text-decoration: underline;
         }
-        
+                .progress-arrow{
+            position:absolute;
+            bottom:20px;
+            left:10%;                 /* will slide to the right in JS */
+            width:32px; height:32px;
+            border-right:6px solid #000;
+            border-bottom:6px solid #000;
+            transform:rotate(45deg);
+            z-index:250;
+            pointer-events:none;      /* don’t steal clicks            */
+            transition:left .3s ease;
+        }
+        .blocker{
+    position:fixed; inset:0;
+    background:rgba(255, 0, 0, 0.149);
+    display:flex; align-items:center; justify-content:center;
+    font-family:"Courier New",monospace;
+    font-size:3rem; letter-spacing:-3px; color:#fff;
+    z-index:50000000;
+    cursor:not-allowed;
+}
 
     </style>
 </head>
@@ -140,28 +165,64 @@
         document.addEventListener("DOMContentLoaded", function () {
             let currentImageIndex = 0; 
             const images = document.querySelectorAll('.foia'); 
+            images.forEach(img => img.setAttribute("draggable","false"));
+
+            let isFlashing   = false;   // click-lock flag
+            let blockerOverlay = null;  // will hold the .blocker element
+            // Global overlay helpers
+            function startBlocker(msg = "") {
+            isFlashing = true;
+            imageContainer.style.cursor = "not-allowed";
+            progressArrow.style.display = "none";
+
+            blockerOverlay = document.createElement("div");
+            blockerOverlay.classList.add("blocker");
+            blockerOverlay.textContent = msg;
+            document.body.appendChild(blockerOverlay);
+            }
+
+            function endBlocker() {
+            isFlashing = false;
+            imageContainer.style.cursor = "";
+            if (blockerOverlay) { blockerOverlay.remove(); blockerOverlay = null; }
+            progressArrow.style.display = "";
+            }
+
             const lastImage = images[images.length - 1]; 
             const imageContainer = document.querySelector('.image-container'); 
+            const progressArrow = document.createElement("div");
+                progressArrow.classList.add("progress-arrow");
+                imageContainer.appendChild(progressArrow);
 
+                function revealNextImage(event) {
+                    /* ignore clicks that aren’t on the active image */
+                    if (isFlashing) {
+                        return;
+                     }  
+                    if (
+                        !event.target.classList.contains("foia") ||
+                        !event.target.classList.contains("active")
+                    ) { return; }
 
-            function revealNextImage() {
-             
-                images[currentImageIndex].classList.remove('active');
-                currentImageIndex++;
-            
+                    images[currentImageIndex].classList.remove("active");
+                    currentImageIndex++;
 
-                if (currentImageIndex >= images.length) {
-                    return; 
-                }
-                if (currentImageIndex === 7) {
-                showButton1();
-                }
-                else if (currentImageIndex === 14) {
-                        showButton2();
-                }
+                    if (currentImageIndex >= images.length) {
+                        progressArrow.style.display = "none";   // hide at the end
+                        return;
+                    }
 
-                images[currentImageIndex].classList.add('active');
-            }
+                    /* show special buttons at the right steps */
+                    if (currentImageIndex === 7)      { showButton1(); }
+                    else if (currentImageIndex === 14){ showButton2(); }
+
+                    images[currentImageIndex].classList.add("active");
+
+                    /* move the arrow to indicate progress (10 → 90 %) */
+                    const pct = currentImageIndex / (images.length - 1);
+                    progressArrow.style.left = 10 + pct * 80 + "%";
+                    }
+
             function showButton1(){
                 let button = document.createElement("button");
                 button.classList.add("buton");
@@ -169,9 +230,13 @@
                 button.type = "button";
                 button.addEventListener("click", function () {
                     button.remove();
+                    startBlocker();                      // ← new
+
                     window.speechSynthesis.cancel();
                     let lynndie = document.createElement("img");
                         lynndie.src = "le1.jpg"; 
+                        lynndie.draggable = false;
+
                         lynndie.classList.add("flash-image");
                         document.body.appendChild(lynndie);
                     const text = `The Iraqis' lives are better. They got the better end of the deal, They weren't innocent. They're trying to kill us, and you want me to apologize to them? It's like saying sorry to the enemy.`;
@@ -183,6 +248,8 @@
                                 utterance.lang = "en-US";
                                 utterance.onend = function () {
                                     lynndie.remove();
+                                    endBlocker();                    // ← new
+
                                 };
                                 window.speechSynthesis.speak(utterance);
                                 audioFiles.forEach((audioInfo) => {
@@ -212,25 +279,34 @@
                     imageContainer.appendChild(button);  
                 }
                 function flashMultipleImages(imageSources, delay) {
-                    let index = 0;
+                startBlocker();
 
-                    function showNextImage() {
-                        if (index >= imageSources.length) return; 
+                let index = 0;
 
-                        let img = document.createElement("img");
-                        img.src = imageSources[index];
-                        img.classList.add("flash-image");
-                        document.body.appendChild(img);
-
-                        setTimeout(() => {
-                            img.remove();
-                            index++;
-                            showNextImage();
-                        }, delay);
+                function showNext(prevImg = null) {
+                    if (index >= imageSources.length) {
+                    if (prevImg) prevImg.remove();
+                    endBlocker();
+                    return;
                     }
 
-                    showNextImage();
+                    const img = new Image();
+                    img.draggable = false;
+
+                    img.src = imageSources[index];
+                    img.classList.add("flash-image");
+                    document.body.appendChild(img);
+
+                    setTimeout(() => {
+                    if (prevImg) prevImg.remove();     // remove previous after new shows
+                    index++;
+                    showNext(img);                     // pass current as next “previous”
+                    }, delay);
                 }
+
+                showNext();
+                }
+
 
             imageContainer.addEventListener('click', revealNextImage);
 

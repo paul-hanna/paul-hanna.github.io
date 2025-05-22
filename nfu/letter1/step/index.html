@@ -101,14 +101,14 @@
                 .progress-arrow{
             position:absolute;
             bottom:20px;
-            left:10%;                 /* will slide to the right in JS */
+            left:10%;                
             width:32px; height:32px;
             border-right:6px solid #000;
             border-bottom:6px solid #000;
             transform:rotate(45deg);
             z-index:250;
-            pointer-events:none;      /* don’t steal clicks            */
-            transition:left .3s ease;
+            pointer-events:none;     
+            
         }
         .blocker{
     position:fixed; inset:0;
@@ -167,9 +167,8 @@
             const images = document.querySelectorAll('.foia'); 
             images.forEach(img => img.setAttribute("draggable","false"));
 
-            let isFlashing   = false;   // click-lock flag
-            let blockerOverlay = null;  // will hold the .blocker element
-            // Global overlay helpers
+            let isFlashing   = false;   
+            let blockerOverlay = null;  
             function startBlocker(msg = "") {
             isFlashing = true;
             imageContainer.style.cursor = "not-allowed";
@@ -195,7 +194,6 @@
                 imageContainer.appendChild(progressArrow);
 
                 function revealNextImage(event) {
-                    /* ignore clicks that aren’t on the active image */
                     if (isFlashing) {
                         return;
                      }  
@@ -208,17 +206,15 @@
                     currentImageIndex++;
 
                     if (currentImageIndex >= images.length) {
-                        progressArrow.style.display = "none";   // hide at the end
+                        progressArrow.style.display = "none";   
                         return;
                     }
 
-                    /* show special buttons at the right steps */
                     if (currentImageIndex === 7)      { showButton1(); }
                     else if (currentImageIndex === 14){ showButton2(); }
 
                     images[currentImageIndex].classList.add("active");
 
-                    /* move the arrow to indicate progress (10 → 90 %) */
                     const pct = currentImageIndex / (images.length - 1);
                     progressArrow.style.left = 10 + pct * 80 + "%";
                     }
@@ -230,8 +226,7 @@
                 button.type = "button";
                 button.addEventListener("click", function () {
                     button.remove();
-                    startBlocker();                      // ← new
-
+                    startBlocker();                    
                     window.speechSynthesis.cancel();
                     let lynndie = document.createElement("img");
                         lynndie.src = "le1.jpg"; 
@@ -248,8 +243,7 @@
                                 utterance.lang = "en-US";
                                 utterance.onend = function () {
                                     lynndie.remove();
-                                    endBlocker();                    // ← new
-
+                                    endBlocker();                
                                 };
                                 window.speechSynthesis.speak(utterance);
                                 audioFiles.forEach((audioInfo) => {
@@ -298,9 +292,9 @@
                     document.body.appendChild(img);
 
                     setTimeout(() => {
-                    if (prevImg) prevImg.remove();     // remove previous after new shows
+                    if (prevImg) prevImg.remove();     
                     index++;
-                    showNext(img);                     // pass current as next “previous”
+                    showNext(img);                    
                     }, delay);
                 }
 

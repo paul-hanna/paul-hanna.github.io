@@ -71,6 +71,9 @@
       cursor: pointer;
       color: rgb(0, 0, 197);
     }
+
+
+
     .dialogue {
       margin: 0 auto 20px;
       padding: 0;
@@ -187,9 +190,17 @@
     }
 
     .trigger-word {
-      text-decoration: underline solid;
+      text-decoration: underline dotted;
       cursor: pointer;
       color: rgb(0, 0, 197);
+    }
+    @media (max-width: 768px) {
+      .character.clickable {
+        text-decoration: underline solid;
+      }
+      .trigger.word {
+        text-decoration: underline solid;
+      }
     }
     .trigger-word.clicked,
     .character.clickable.clicked {

@@ -69,7 +69,7 @@
     .character.clickable {
       text-decoration: underline dotted;
       cursor: pointer;
-      color: #006;
+      color: rgb(0, 0, 197);
     }
     .dialogue {
       margin: 0 auto 20px;
@@ -186,34 +186,17 @@
       background: transparent;
     }
 
-    .character.clickable,
-.trigger-word {
-  text-decoration: underline solid 2px;
-  color: #007BFF; 
-  cursor: pointer;
-  font-weight: 600;
-}
-
-.character.clickable:hover,
-.trigger-word:hover {
-  color: #0056b3;
-  text-shadow: 0 0 1px rgba(0,0,0,0.3);
-}
-
-.character.clickable.clicked {
-  cursor: default;
-  text-decoration: none;
-  color: inherit;
-  font-weight: 600; 
-}
-
-.trigger-word.clicked {
-  cursor: default;
-  text-decoration: none;
-  color: inherit;
-  font-weight: normal; 
-}
-
+    .trigger-word {
+      text-decoration: underline solid;
+      cursor: pointer;
+      color: rgb(0, 0, 173);
+    }
+    .trigger-word.clicked,
+    .character.clickable.clicked {
+      cursor: default;
+      text-decoration: none;
+      color: inherit;
+    }
   </style>
 </head>
 <body class="locked">
@@ -527,6 +510,7 @@ function shuffleScenes() {
           currentSceneAudio.pause();
           currentSceneAudio.currentTime = 0;
         }
+        // start the new one (if declared)
         if (line.dataset.sceneSound) {
           currentSceneAudio = new Audio(line.dataset.sceneSound);
           currentSceneAudio.loop = true;

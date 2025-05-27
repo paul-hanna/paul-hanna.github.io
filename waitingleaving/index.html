@@ -186,17 +186,34 @@
       background: transparent;
     }
 
-    .trigger-word {
-      text-decoration: underline solid;
-      cursor: pointer;
-      color: rgb(0, 0, 173);
-    }
-    .trigger-word.clicked,
-    .character.clickable.clicked {
-      cursor: default;
-      text-decoration: none;
-      color: inherit;
-    }
+    .character.clickable,
+.trigger-word {
+  text-decoration: underline solid 2px;
+  color: #007BFF; 
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.character.clickable:hover,
+.trigger-word:hover {
+  color: #0056b3;
+  text-shadow: 0 0 1px rgba(0,0,0,0.3);
+}
+
+.character.clickable.clicked {
+  cursor: default;
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600; 
+}
+
+.trigger-word.clicked {
+  cursor: default;
+  text-decoration: none;
+  color: inherit;
+  font-weight: normal; 
+}
+
   </style>
 </head>
 <body class="locked">
@@ -510,7 +527,6 @@ function shuffleScenes() {
           currentSceneAudio.pause();
           currentSceneAudio.currentTime = 0;
         }
-        // start the new one (if declared)
         if (line.dataset.sceneSound) {
           currentSceneAudio = new Audio(line.dataset.sceneSound);
           currentSceneAudio.loop = true;
@@ -566,19 +582,15 @@ function shuffleScenes() {
           return;
         }
 
-          // determine how long to wait before advancing
           let delayMs = DEFAULT_DELAY;
 
-          // if the HTML declares its own delay, use that
           if (line.dataset.delay) {
             delayMs = parseInt(line.dataset.delay, 10);
 
-          // otherwise if it’s an action line, use the action delay
           } else if (line.classList.contains('action')) {
             delayMs = ACTION_DELAY;
           }
 
-          // schedule the next line
           setTimeout(() => show(index + 1), delayMs);
       }
 
@@ -646,10 +658,8 @@ function playFilmStrip(index, done) {
     current++;
 
     if (current < layers.length) {
-      // use IMAGE_FRAME_DURATION here
       setTimeout(nextFrame, IMAGE_FRAME_DURATION);
     } else {
-      // after the last frame, hold for IMAGE_HOLD_DURATION
       setTimeout(() => {
         container.removeChild(strip);
         done();

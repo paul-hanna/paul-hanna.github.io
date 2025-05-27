@@ -6,43 +6,54 @@
     <title>notes from underground</title>
     <link rel="stylesheet" href="https://use.typekit.net/oxs8fdu.css">
     <style>
-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    background-color: #000000;
-    text-align: center;
-    overflow: hidden; 
+        body {
+            margin: 0;
+            background-color: black;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            font-family: 'Courier New', Courier, monospace;
+        }
 
-}
+        #introContainer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+            width: 100vw;
+        }
 
-.letter {
-    font-family: 'Courier New', Courier, monospace;
-    color: rgb(255, 0, 0);
-    font-size: large;
-    width: 120vw;
-    text-align: center;
-    white-space: pre-wrap;
-    padding: 10px;
-}
+        .introVideo {
+            width: 33.33vh;
+            height: 33.33vh;
+            object-fit: cover;
+            margin: 0 1vw;
+        }
 
-button {
-    margin: 10px;
-    font-family: 'Courier New', Courier, monospace;
-    padding: 10px 20px;
-    font-size: 16px;
-    cursor: pointer;
-    display: none;
-    border: 0;
-    background-color: black;
-    color: rgb(255, 0, 0);
-    font-size: large;
-}
+        #buttonContainer {
+            display: none;
+            height: 50vh;
+            width: 100vw;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2rem;
+        }
 
-#videoContainer {
+        .videoButton {
+            font-family: 'Courier New', Courier, monospace;
+            padding: 10px 20px;
+            font-size: large;
+            background-color: black;
+            color: red;
+            border: none;
+            cursor: pointer;
+            z-index: 2;
+            position: relative;
+        }
+
+        #videoContainer {
             display: none;
             position: fixed;
             top: 0;
@@ -50,49 +61,59 @@ button {
             width: 100%;
             height: 100%;
             z-index: 10;
+            background-color: black;
         }
 
         #videoPlayer {
             width: 100%;
             height: 100%;
-            object-fit: cover; 
+            object-fit: cover;
+            pointer-events: none; 
+            user-select: none;
         }
     </style>
 </head>
 <body>
-    <div class="letter"></div>
-    <button class="videoButton" data-video="bush.mp4"><u>BUSH</u></button>
-    <button class="videoButton" data-video="rumsfeld.mp4"><u>RUMSFELD</u></button>
-    <button class="videoButton" data-video="myers.mp4"><u>MYERS</u></button>
-    
+
+    <div id="introContainer">
+        <video class="introVideo" src="breaking1.mp4" muted playsinline></video>
+        <video class="introVideo" src="breaking2.mp4" muted playsinline></video>
+        <video class="introVideo" src="breaking3.mp4" muted playsinline></video>
+    </div>
+
+    <div id="buttonContainer" style="display: none;">
+        <button class="videoButton" data-video="bush.mp4"><u>BUSH</u></button>
+        <button class="videoButton" data-video="rumsfeld.mp4"><u>RUMSFELD</u></button>
+        <button class="videoButton" data-video="myers.mp4"><u>MYERS</u></button>
+    </div>
+
     <div id="videoContainer">
-        <video id="videoPlayer" ></video>
+        <video id="videoPlayer" playsinline></video>
     </div>
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            const letterDiv = document.querySelector(".letter");
+            const introVideos = document.querySelectorAll(".introVideo");
             const buttons = document.querySelectorAll(".videoButton");
+            const buttonContainer = document.getElementById("buttonContainer");
             const videoContainer = document.getElementById("videoContainer");
             const videoPlayer = document.getElementById("videoPlayer");
 
-            const text = `BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING BREAKING`;
-            let playedVideos = 0; 
-            const totalVideos = buttons.length; 
-        
-            letterDiv.innerHTML = "";
-            let i = 0;
+            let introsFinished = 0;
+            let watchedVideos = 0;
+            const totalVideos = buttons.length;
 
-            function typeWriter() {
-                if (i < text.length) {
-                    letterDiv.innerHTML = text.slice(0, i + 1);
-                    i++;
-                    setTimeout(typeWriter, 10);
-                } else {
-                    buttons.forEach(button => button.style.display = "inline-block");
-                }
-            }
-            typeWriter();
+            introVideos.forEach(video => {
+                video.play();
+                video.addEventListener("ended", () => {
+                    video.pause();
+                    video.currentTime = video.duration;
+                    introsFinished++;
+                    if (introsFinished === introVideos.length) {
+                        buttonContainer.style.display = "flex";
+                    }
+                });
+            });
 
             buttons.forEach(button => {
                 button.addEventListener("click", function () {
@@ -103,66 +124,60 @@ button {
                     videoPlayer.play();
 
                     buttons.forEach(btn => btn.disabled = true);
-                    this.style.display = "none"; 
+                    this.style.display = "none";
 
                     videoPlayer.onended = () => {
-                        videoContainer.style.display = "none"; 
-                        videoPlayer.src = ""; 
-                        playedVideos++; // Increment the count
-                            if (playedVideos >= totalVideos) {
-                                window.location.href = "letter3"; // Change this to your actual next page URL
-                            } else {
-                                buttons.forEach(btn => btn.disabled = false); // Enable remaining buttons
-                            }
+                        videoContainer.style.display = "none";
+                        videoPlayer.src = "";
+                        watchedVideos++;
+                        if (watchedVideos >= totalVideos) {
+                            window.location.href = "letter3";
+                        } else {
+                            buttons.forEach(btn => {
+                                if (btn.style.display !== "none") {
+                                    btn.disabled = false;
+                                }
+                            });
+                        }
                     };
                 });
             });
+
+            videoPlayer.addEventListener('pause', () => {
+                if (!videoPlayer.ended) videoPlayer.play();
+            });
+
+            window.addEventListener('keydown', (e) => {
+                if (videoContainer.style.display === "block") {
+                    e.preventDefault();
+                }
+            });
+
+            videoPlayer.addEventListener('contextmenu', e => e.preventDefault());
+            videoPlayer.addEventListener('click', e => e.preventDefault());
         });
     </script>
 
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
             window.speechSynthesis.cancel();
-            let audioFiles = [
+            const audioFiles = [{
+                file: "plainchant.wav",
+                volume: 0.2,
+                playbackRate: 1,
+                delay: 0,
+            }];
 
-                {
-                    file: "plainchant.wav",
-                    volume: 0.2,        
-                    playbackRate: 1,    
-                    delay: 0,        //ms
-                },
+            function playAudioWithDelay(audioInfo) {
+                const audio = new Audio(audioInfo.file);
+                audio.volume = audioInfo.volume || 1;
+                audio.playbackRate = audioInfo.playbackRate || 1;
+                setTimeout(() => audio.play(), audioInfo.delay);
+            }
 
-            ];
+            audioFiles.forEach(playAudioWithDelay);
+        });
+    </script>
 
-            const text = ``;
-
-function playAudioWithDelay(audioInfo) {
-const audio = new Audio(audioInfo.file);
-audio.volume = audioInfo.volume || 1;  
-audio.playbackRate = audioInfo.playbackRate || 1;
-
-setTimeout(() => {
-    audio.play(); 
-}, audioInfo.delay);
-
-}
-function speakText(textToSpeak) {
-const utterance = new SpeechSynthesisUtterance(textToSpeak);
-utterance.rate = 1.1; 
-utterance.pitch = 1;
-utterance.volume = .5;
-utterance.lang = "en-US";
-window.speechSynthesis.speak(utterance);
-audioFiles.forEach((audioInfo) => {
-    playAudioWithDelay(audioInfo);
-});
-}
-
-speakText(text);
-        }
-
-);   
-</script>
 </body>
 </html>

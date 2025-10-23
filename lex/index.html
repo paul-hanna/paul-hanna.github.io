@@ -1,241 +1,241 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lex</title>
-    <style>
-        body {
-            margin: 0;
-            padding: 20px;
-            background: #f5f5f5;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-        }
-        .image-container {
-            position: relative;
-            max-width: 300px;
-            height: 250px;
-            border: 1px solid #ddd;
-            background: #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        img {
-            max-width: 100%;
-            max-height: 100%;
-            object-fit: cover;
-        }
-        .error-placeholder {
-            background: #f0f0f0;
-            color: #666;
-            padding: 20px;
-            text-align: center;
-            font-size: 12px;
-            border: 2px dashed #ccc;
-        }
-        .retry-btn {
-            background: #007bff;
-            color: white;
-            border: none;
-            padding: 5px 10px;
-            margin-top: 10px;
-            cursor: pointer;
-            border-radius: 3px;
-            font-size: 11px;
-        }
-        .retry-btn:hover {
-            background: #0056b3;
-        }
-    </style>
-</head>
-<body>
-    <div id="gallery"></div>
-    <script>
-        // ====== CONFIGURATION ======
-        const COLUMNS = {
-            timestamp: 0,
-            imageUrl: 1,
-        };
-
-        const AUTO_REFRESH = 30;
-        const MAX_RETRIES = 3;
-        const RETRY_DELAY = 2000; // 2 seconds
-        // ===========================
-
-        class ImageGallery {
-            constructor() {
-                this.gallery = document.getElementById('gallery');
-                this.failedImages = new Set();
-                console.log("ImageGallery initialized.");
-                this.loadImages();
-
-                if (AUTO_REFRESH > 0) {
-                    setInterval(() => this.loadImages(), AUTO_REFRESH * 1000);
-                }
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>lex</title>
+        <style>
+            body {
+                margin: 0;
+                padding: 20px;
+                background: #f5f5f5;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 20px;
+                justify-content: center;
             }
-
-            async loadImages() {
-                try {
-                    const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSq5u3NLzwualGtdcLOKo1C6mHCMYjdaY79ExgbVvnQsHqoi8vZ3mOBJiC1bojznkmC1vLwWuQp3lg4/pub?gid=272625126&single=true&output=csv';
-                    console.log("Fetching CSV from:", csvUrl);
-                    const response = await fetch(csvUrl);
-
-                    if (!response.ok) {
-                        throw new Error(`HTTP ${response.status} when fetching CSV`);
-                    }
-                    const csvText = await response.text();
-                    console.log("CSV fetched successfully. Length:", csvText.length);
-
-                    const rows = this.parseCSV(csvText);
-
-                    if (rows.length > 1) {
-                        this.displayImages(rows.slice(1));
-                    } else {
-                        this.gallery.innerHTML = '<div class="error-placeholder">No images found.</div>';
-                    }
-
-                } catch (error) {
-                    console.error('Error loading images:', error);
-                    this.gallery.innerHTML = '<div class="error-placeholder">Error loading images: ' + error.message + '</div>';
-                }
+            .image-container {
+                position: relative;
+                max-width: 300px;
+                height: 250px;
+                border: 1px solid #ddd;
+                background: #fff;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                overflow: hidden;
             }
+            img {
+                max-width: 100%;
+                max-height: 100%;
+                object-fit: cover;
+            }
+            .error-placeholder {
+                background: #f0f0f0;
+                color: #666;
+                padding: 20px;
+                text-align: center;
+                font-size: 12px;
+                border: 2px dashed #ccc;
+            }
+            .retry-btn {
+                background: #007bff;
+                color: white;
+                border: none;
+                padding: 5px 10px;
+                margin-top: 10px;
+                cursor: pointer;
+                border-radius: 3px;
+                font-size: 11px;
+            }
+            .retry-btn:hover {
+                background: #0056b3;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="gallery"></div>
+        <script>
+            // ====== CONFIGURATION ======
+            const COLUMNS = {
+                timestamp: 0,
+                imageUrl: 1,
+            };
 
-            parseCSV(csv) {
-                const lines = csv.trim().split('\n');
-                return lines.map(line => {
-                    const result = [];
-                    let current = '';
-                    let inQuotes = false;
+            const AUTO_REFRESH = 30;
+            const MAX_RETRIES = 3;
+            const RETRY_DELAY = 2000; // 2 seconds
+            // ===========================
 
-                    for (let i = 0; i < line.length; i++) {
-                        const char = line[i];
+            class ImageGallery {
+                constructor() {
+                    this.gallery = document.getElementById('gallery');
+                    this.failedImages = new Set();
+                    console.log("ImageGallery initialized.");
+                    this.loadImages();
 
-                        if (char === '"' && inQuotes && line[i + 1] === '"') {
-                            current += '"';
-                            i++;
-                        } else if (char === '"') {
-                            inQuotes = !inQuotes;
-                        } else if (char === ',' && !inQuotes) {
-                            result.push(current);
-                            current = '';
-                        } else {
-                            current += char;
+                    if (AUTO_REFRESH > 0) {
+                        setInterval(() => this.loadImages(), AUTO_REFRESH * 1000);
+                    }
+                }
+
+                async loadImages() {
+                    try {
+                        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSq5u3NLzwualGtdcLOKo1C6mHCMYjdaY79ExgbVvnQsHqoi8vZ3mOBJiC1bojznkmC1vLwWuQp3lg4/pub?gid=272625126&single=true&output=csv';
+                        console.log("Fetching CSV from:", csvUrl);
+                        const response = await fetch(csvUrl);
+
+                        if (!response.ok) {
+                            throw new Error(`HTTP ${response.status} when fetching CSV`);
                         }
+                        const csvText = await response.text();
+                        console.log("CSV fetched successfully. Length:", csvText.length);
+
+                        const rows = this.parseCSV(csvText);
+
+                        if (rows.length > 1) {
+                            this.displayImages(rows.slice(1));
+                        } else {
+                            this.gallery.innerHTML = '<div class="error-placeholder">No images found.</div>';
+                        }
+
+                    } catch (error) {
+                        console.error('Error loading images:', error);
+                        this.gallery.innerHTML = '<div class="error-placeholder">Error loading images: ' + error.message + '</div>';
                     }
-                    result.push(current);
-                    return result;
-                });
-            }
+                }
 
-            displayImages(rows) {
-                this.gallery.innerHTML = '';
+                parseCSV(csv) {
+                    const lines = csv.trim().split('\n');
+                    return lines.map(line => {
+                        const result = [];
+                        let current = '';
+                        let inQuotes = false;
 
-                rows.forEach((row, rowIndex) => {
-                    const rawCellValue = row[COLUMNS.imageUrl];
-                    const imageUrl = this.getImageUrl(rawCellValue);
+                        for (let i = 0; i < line.length; i++) {
+                            const char = line[i];
 
-                    console.log(`Row ${rowIndex} - Image URL:`, imageUrl);
-
-                    if (imageUrl) {
-                        this.createImageElement(imageUrl, rowIndex);
-                    } else {
-                        console.warn(`Skipping row ${rowIndex} - invalid URL:`, rawCellValue);
-                    }
-                });
-            }
-
-            createImageElement(imageUrl, rowIndex) {
-                const container = document.createElement('div');
-                container.className = 'image-container';
-
-                const img = document.createElement('img');
-                img.src = imageUrl;
-                img.alt = `Image ${rowIndex}`;
-                img.loading = 'lazy';
-
-                let retryCount = 0;
-
-                const handleError = () => {
-                    console.error(`Failed to load image (attempt ${retryCount + 1}):`, imageUrl);
-                    
-                    if (retryCount < MAX_RETRIES) {
-                        retryCount++;
-                        console.log(`Retrying in ${RETRY_DELAY/1000} seconds...`);
-                        
-                        setTimeout(() => {
-                            // Try alternative URL formats
-                            const fileId = this.extractFileId(imageUrl);
-                            if (fileId) {
-                                const altUrls = [
-                                    `https://drive.google.com/uc?export=view&id=${fileId}`,
-                                    `https://drive.google.com/thumbnail?id=${fileId}&sz=w300`,
-                                    `https://lh3.googleusercontent.com/d/${fileId}`
-                                ];
-                                
-                                if (retryCount <= altUrls.length) {
-                                    img.src = altUrls[retryCount - 1];
-                                    console.log(`Trying alternative URL:`, img.src);
-                                }
+                            if (char === '"' && inQuotes && line[i + 1] === '"') {
+                                current += '"';
+                                i++;
+                            } else if (char === '"') {
+                                inQuotes = !inQuotes;
+                            } else if (char === ',' && !inQuotes) {
+                                result.push(current);
+                                current = '';
+                            } else {
+                                current += char;
                             }
-                        }, RETRY_DELAY);
-                    } else {
-                        // Show error placeholder after all retries failed
-                        this.showErrorPlaceholder(container, imageUrl);
+                        }
+                        result.push(current);
+                        return result;
+                    });
+                }
+
+                displayImages(rows) {
+                    this.gallery.innerHTML = '';
+
+                    rows.forEach((row, rowIndex) => {
+                        const rawCellValue = row[COLUMNS.imageUrl];
+                        const imageUrl = this.getImageUrl(rawCellValue);
+
+                        console.log(`Row ${rowIndex} - Image URL:`, imageUrl);
+
+                        if (imageUrl) {
+                            this.createImageElement(imageUrl, rowIndex);
+                        } else {
+                            console.warn(`Skipping row ${rowIndex} - invalid URL:`, rawCellValue);
+                        }
+                    });
+                }
+
+                createImageElement(imageUrl, rowIndex) {
+                    const container = document.createElement('div');
+                    container.className = 'image-container';
+
+                    const img = document.createElement('img');
+                    img.src = imageUrl;
+                    img.alt = `Image ${rowIndex}`;
+                    img.loading = 'lazy';
+
+                    let retryCount = 0;
+
+                    const handleError = () => {
+                        console.error(`Failed to load image (attempt ${retryCount + 1}):`, imageUrl);
+                        
+                        if (retryCount < MAX_RETRIES) {
+                            retryCount++;
+                            console.log(`Retrying in ${RETRY_DELAY/1000} seconds...`);
+                            
+                            setTimeout(() => {
+                                // Try alternative URL formats
+                                const fileId = this.extractFileId(imageUrl);
+                                if (fileId) {
+                                    const altUrls = [
+                                        `https://drive.google.com/uc?export=view&id=${fileId}`,
+                                        `https://drive.google.com/thumbnail?id=${fileId}&sz=w300`,
+                                        `https://lh3.googleusercontent.com/d/${fileId}`
+                                    ];
+                                    
+                                    if (retryCount <= altUrls.length) {
+                                        img.src = altUrls[retryCount - 1];
+                                        console.log(`Trying alternative URL:`, img.src);
+                                    }
+                                }
+                            }, RETRY_DELAY);
+                        } else {
+                            // Show error placeholder after all retries failed
+                            this.showErrorPlaceholder(container, imageUrl);
+                        }
+                    };
+
+                    img.onerror = handleError;
+                    
+                    img.onload = () => {
+                        console.log(`Successfully loaded image:`, imageUrl);
+                    };
+
+                    container.appendChild(img);
+                    this.gallery.appendChild(container);
+                }
+
+                showErrorPlaceholder(container, originalUrl) {
+                    container.innerHTML = `
+                        <div class="error-placeholder">
+                            <div>⚠️ Image failed to load</div>
+                            <div style="font-size: 10px; margin-top: 5px;">Check sharing permissions</div>
+                            <button class="retry-btn" onclick="this.parentElement.parentElement.querySelector('img')?.remove(); location.reload();">
+                                Retry
+                            </button>
+                        </div>
+                    `;
+                }
+
+                extractFileId(url) {
+                    if (!url) return null;
+                    const match = url.match(/[?&]id=([a-zA-Z0-9-_]+)|\/d\/([a-zA-Z0-9-_]+)/);
+                    return match ? (match[1] || match[2]) : null;
+                }
+
+                getImageUrl(cellValue) {
+                    console.log("Processing cell value:", cellValue);
+                    if (!cellValue || typeof cellValue !== 'string' || !cellValue.includes('drive.google.com')) {
+                        return null;
                     }
-                };
 
-                img.onerror = handleError;
-                
-                img.onload = () => {
-                    console.log(`Successfully loaded image:`, imageUrl);
-                };
+                    let fileIdMatch = cellValue.match(/\/d\/([a-zA-Z0-9-_]+)/);
+                    if (!fileIdMatch) {
+                        fileIdMatch = cellValue.match(/id=([a-zA-Z0-9-_]+)/);
+                    }
 
-                container.appendChild(img);
-                this.gallery.appendChild(container);
-            }
-
-            showErrorPlaceholder(container, originalUrl) {
-                container.innerHTML = `
-                    <div class="error-placeholder">
-                        <div>⚠️ Image failed to load</div>
-                        <div style="font-size: 10px; margin-top: 5px;">Check sharing permissions</div>
-                        <button class="retry-btn" onclick="this.parentElement.parentElement.querySelector('img')?.remove(); location.reload();">
-                            Retry
-                        </button>
-                    </div>
-                `;
-            }
-
-            extractFileId(url) {
-                if (!url) return null;
-                const match = url.match(/[?&]id=([a-zA-Z0-9-_]+)|\/d\/([a-zA-Z0-9-_]+)/);
-                return match ? (match[1] || match[2]) : null;
-            }
-
-            getImageUrl(cellValue) {
-                console.log("Processing cell value:", cellValue);
-                if (!cellValue || typeof cellValue !== 'string' || !cellValue.includes('drive.google.com')) {
-                    return null;
+                    const fileId = fileIdMatch ? fileIdMatch[1] : null;
+                    return fileId ? `https://drive.google.com/uc?export=view&id=${fileId}` : null;
                 }
-
-                let fileIdMatch = cellValue.match(/\/d\/([a-zA-Z0-9-_]+)/);
-                if (!fileIdMatch) {
-                    fileIdMatch = cellValue.match(/id=([a-zA-Z0-9-_]+)/);
-                }
-
-                const fileId = fileIdMatch ? fileIdMatch[1] : null;
-                return fileId ? `https://drive.google.com/uc?export=view&id=${fileId}` : null;
             }
-        }
 
-        document.addEventListener('DOMContentLoaded', () => {
-            new ImageGallery();
-        });
-    </script>
-</body>
-</html>
+            document.addEventListener('DOMContentLoaded', () => {
+                new ImageGallery();
+            });
+        </script>
+    </body>
+    </html>

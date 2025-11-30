@@ -1,9 +1,12 @@
-name: Deploy to GitHub Pages
+name: Deploy Frontend to GitHub Pages
 
 on:
   push:
     branches:
-      - main  # Change to your default branch name (main or master)
+      - main
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deploy.yml'
   workflow_dispatch:
 
 permissions:
@@ -23,7 +26,7 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Node.js
@@ -37,7 +40,7 @@ jobs:
         working-directory: ./frontend
         run: npm ci
 
-      - name: Build
+      - name: Build frontend
         working-directory: ./frontend
         env:
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
@@ -54,4 +57,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

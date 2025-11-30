@@ -4,7 +4,7 @@ import react from '@vitejs/plugin-react'
 
 export default defineConfig({
   plugins: [react()],
-  base: '/tomorrow-tragedy/', // Change this to your GitHub repo name
+  base: '/news-tomorrow/', // GitHub Pages base path - matches repository name
   server: {
     proxy: {
       '/api': {

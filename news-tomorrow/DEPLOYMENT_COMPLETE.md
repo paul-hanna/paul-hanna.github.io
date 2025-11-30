@@ -53,11 +53,20 @@ This guide will walk you through deploying your **Tomorrow's Tragedy** applicati
    - Select branch: `main`
 
 4. **Configure the App**:
+   
+   **Option A: Using App Spec File (Recommended)**
+   - The `.do/app.yaml` file is already configured
+   - Digital Ocean will automatically detect and use it
+   - Just verify the repository name matches in the file
+   
+   **Option B: Manual Configuration**
    - Digital Ocean will auto-detect it's a Node.js app
-   - **Root Directory**: Set to `backend`
+   - **Root Directory**: Set to `news-tomorrow/backend` (NOT just `backend`)
    - **Build Command**: `npm install`
    - **Run Command**: `npm start`
    - **Environment**: `Node.js` (auto-detected)
+   
+   **Important**: If you see "could not detect app files" error, make sure the Root Directory is set to `news-tomorrow/backend` (the full path from repo root).
 
 5. **Add Environment Variables**:
    Click **Environment Variables** and add:

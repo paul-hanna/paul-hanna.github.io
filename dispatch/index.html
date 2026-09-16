@@ -1,0 +1,180 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Dispatch — Ordnance, delivered.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">Dispatch</a>
+    <button class="loc-pill" id="locPill" type="button">
+      <span class="loc-pill-label">Deliver to:</span>
+      <strong id="locPillText">Choose a location</strong>
+    </button>
+    <div class="topbar-actions">
+      <button class="icon-btn" id="muteBtn" type="button" aria-label="Toggle sound"></button>
+      <button class="cart-btn" id="cartBtn" type="button" aria-label="Open cart">
+        <span class="cart-btn-icon"></span>
+        <span class="badge" id="cartCount">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <!-- Landing / service area -->
+    <section id="view-landing" class="view view-landing">
+      <div class="landing-hero">
+        <p class="eyebrow">Service area</p>
+        <h1>Where are we delivering today?</h1>
+        <p class="lede">Now delivering to <strong>16 locations</strong> across the region. We're working hard to expand our operating range. More areas coming soon.</p>
+        <form class="address-bar" id="addressForm" autocomplete="off">
+          <input id="addressInput" type="text" placeholder="Enter a delivery address" aria-label="Delivery address" />
+          <button id="addressBtn" type="submit">Check</button>
+        </form>
+        <div id="addressResult" class="address-result" hidden></div>
+      </div>
+      <div class="map-wrap">
+        <svg id="mapSvg" class="map" role="img" aria-label="Map of delivery locations"></svg>
+        <div id="mapCard" class="map-card" hidden></div>
+      </div>
+      <div class="served">
+        <h2>Delivering now</h2>
+        <div id="servedList" class="served-list"></div>
+      </div>
+      <div class="soon">
+        <h2>Coming soon to your area</h2>
+        <div id="comingSoon" class="soon-list"></div>
+        <button class="btn-ghost" id="voteBtn" type="button">Vote for your area</button>
+      </div>
+    </section>
+
+    <!-- Storefront -->
+    <section id="view-store" class="view view-store" hidden>
+      <div id="storeBanner" class="store-banner"></div>
+      <div id="chips" class="chips" role="tablist"></div>
+      <div id="grid" class="grid"></div>
+      <button class="cart-bar" id="cartBar" type="button" hidden>
+        <span class="cart-bar-count" id="cartBarCount">0</span>
+        <span>View cart</span>
+        <span class="cart-bar-total" id="cartBarTotal">$0</span>
+      </button>
+    </section>
+
+    <!-- Checkout -->
+    <section id="view-checkout" class="view view-checkout" hidden>
+      <button class="btn-link" id="coBack" type="button">← Back to cart</button>
+      <h1>Checkout</h1>
+      <div class="co-section">
+        <h2>Deliver to</h2>
+        <div id="coLocation" class="co-location"></div>
+      </div>
+      <div class="co-section">
+        <h2>Delivery window</h2>
+        <div id="coWindows" class="tiles"></div>
+      </div>
+      <div class="co-section">
+        <h2>Payment method</h2>
+        <div id="coPayments" class="tiles"></div>
+      </div>
+      <div class="co-section">
+        <button class="btn-link" id="coSummaryToggle" type="button">Show order summary</button>
+        <div id="coSummary" class="co-summary" hidden></div>
+      </div>
+      <div class="co-footer">
+        <div class="co-total">Total <strong id="coTotal">$0</strong></div>
+        <button class="btn-primary btn-xl" id="authorizeBtn" type="button">Authorize</button>
+        <p class="fineprint">By authorizing you agree to our Rules of Engagement and Terms of Service.</p>
+      </div>
+    </section>
+
+    <!-- Confirmation -->
+    <section id="view-confirm" class="view view-confirm" hidden>
+      <div class="confirm-hero">
+        <div class="confirm-check"></div>
+        <h1>Order confirmed!</h1>
+        <p class="confirm-sub">Order <strong id="confNumber">CENTCOM-00000</strong>. We've sent a receipt to your .mil address.</p>
+        <div class="confirm-total" id="confTotal">$0</div>
+      </div>
+      <div class="route-wrap">
+        <p class="route-head" id="routeHead"></p>
+        <svg id="routeMap" class="route-map" role="img" aria-label="Delivery route"></svg>
+      </div>
+      <ol id="tracker" class="tracker"></ol>
+      <div id="rateCard" class="rate-card" hidden>
+        <h2>Rate your delivery</h2>
+        <div id="rateStars" class="rate-stars"></div>
+      </div>
+      <div id="reportCard" class="report-card" hidden>
+        <div class="report-head">
+          <span>Delivery report</span>
+          <span class="report-order" id="reportOrder"></span>
+        </div>
+        <div class="report-body">
+          <span class="report-avatar" id="reportAvatar"></span>
+          <p class="report-note" id="reportNote"></p>
+        </div>
+        <p class="report-foot">
+          Estimate derived from published figures for comparable documented strikes.
+          <a href="sources.html">Method and sources</a>
+        </p>
+      </div>
+      <p id="lifetime" class="lifetime"></p>
+      <div class="confirm-actions">
+        <button class="btn-primary" id="reorderBtn" type="button">Reorder</button>
+        <button class="btn-ghost" id="shopBtn" type="button">Keep shopping</button>
+        <button class="btn-ghost" id="shareBtn" type="button">Share</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <a href="sources.html">Sources</a> · <span>Rules of Engagement</span> · <span>Terms of Service</span>
+  </footer>
+
+  <!-- Cart drawer -->
+  <div id="drawerBackdrop" class="backdrop" hidden></div>
+  <aside id="drawer" class="drawer" hidden aria-label="Your cart">
+    <div class="drawer-head">
+      <h2>Your order</h2>
+      <button class="icon-btn" id="drawerClose" type="button" aria-label="Close cart"></button>
+    </div>
+    <p id="drawerEmpty" class="drawer-empty">Add something to your order.</p>
+    <div id="drawerItems" class="drawer-items"></div>
+    <div class="drawer-tip">
+      <div class="drawer-row-label">Tip your aircrew <small>100% of tips go to the squadron.</small></div>
+      <div id="tipChips" class="tip-chips"></div>
+    </div>
+    <form class="promo" id="promoForm" autocomplete="off">
+      <input id="promoInput" type="text" placeholder="Promo code" aria-label="Promo code" />
+      <button id="promoBtn" type="submit">Apply</button>
+    </form>
+    <p id="promoMsg" class="promo-msg" hidden></p>
+    <dl class="summary">
+      <dt>Subtotal</dt><dd id="sumSubtotal">$0</dd>
+      <dt>Aerial refueling</dt><dd id="sumHandling">$0</dd>
+      <dt>Tip</dt><dd id="sumTip">$0</dd>
+      <dt>Tax <small>Title 10 exempt</small></dt><dd id="sumTax">$0.00</dd>
+      <dt class="total">Total</dt><dd class="total" id="sumTotal">$0</dd>
+    </dl>
+    <p id="drawerDelivery" class="drawer-delivery"></p>
+    <button class="btn-primary btn-xl" id="checkoutBtn" type="button">Checkout</button>
+  </aside>
+
+  <!-- Product sheet -->
+  <div id="sheetBackdrop" class="backdrop" hidden></div>
+  <div id="sheet" class="sheet" hidden role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+    <button class="icon-btn sheet-close" id="sheetClose" type="button" aria-label="Close"></button>
+    <div id="sheetBody"></div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+  <canvas id="confetti" class="confetti" hidden></canvas>
+
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

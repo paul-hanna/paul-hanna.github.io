@@ -1,0 +1,394 @@
+[
+  {
+    "id": "aid-convoy",
+    "kind": "bundle",
+    "title": "Composite of hellfire, mq9",
+    "author": "Composited from the product images listed above",
+    "licence": "Public domain",
+    "sourceUrl": ""
+  },
+  {
+    "id": "back-to-school",
+    "kind": "bundle",
+    "title": "Composite of gbu32, gbu39, mk82",
+    "author": "Composited from the product images listed above",
+    "licence": "Public domain",
+    "sourceUrl": ""
+  },
+  {
+    "id": "deep-clean",
+    "kind": "bundle",
+    "title": "Composite of mop, b2, kc135",
+    "author": "Composited from the product images listed above",
+    "licence": "Public domain",
+    "sourceUrl": ""
+  },
+  {
+    "id": "get-well-soon",
+    "kind": "bundle",
+    "title": "Composite of gbu31, gbu39, m795",
+    "author": "Composited from the product images listed above",
+    "licence": "Public domain",
+    "sourceUrl": ""
+  },
+  {
+    "id": "press-corps",
+    "kind": "bundle",
+    "title": "Composite of gbu39, hellfire, mq9",
+    "author": "Composited from the product images listed above",
+    "licence": "Public domain",
+    "sourceUrl": ""
+  },
+  {
+    "id": "red-sea-starter",
+    "kind": "bundle",
+    "title": "Composite of tlam, csg, sm6",
+    "author": "Composited from the product images listed above",
+    "licence": "Public domain",
+    "sourceUrl": ""
+  },
+  {
+    "id": "wedding-party",
+    "kind": "bundle",
+    "title": "Composite of hellfire, gbu12, mq9",
+    "author": "Composited from the product images listed above",
+    "licence": "Public domain",
+    "sourceUrl": ""
+  },
+  {
+    "id": "aargm",
+    "kind": "product",
+    "title": "AGM-88 HARM on F-4G (cropped).jpg",
+    "author": "SSGT. SCOTT STEWART",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AGM-88_HARM_on_F-4G_(cropped).jpg"
+  },
+  {
+    "id": "abct",
+    "kind": "product",
+    "title": "US Army 53580 BAGHDAD - Iraqi Army Soldiers and U.S. forces direct traffic during a joint night patrol in eastern Baghdad, Oct. 18.jpg",
+    "author": "Staff Sgt. Mark Burrell, MND-B PAO",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Army_53580_BAGHDAD_-_Iraqi_Army_Soldiers_and_U.S._forces_direct_traffic_during_a_joint_night_patrol_in_eastern_Baghdad,_Oct._18.jpg"
+  },
+  {
+    "id": "ac130",
+    "kind": "product",
+    "title": "AC-130H Spectre jettisons flares.jpg",
+    "author": "U.S. Air Force photo/Senior Airman Julianne Showalter",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AC-130H_Spectre_jettisons_flares.jpg"
+  },
+  {
+    "id": "adv",
+    "kind": "product",
+    "title": "U.S. Army training Iraqi Army on M252 Mortar.jpg",
+    "author": "Pfc. Angel Washington",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Army_training_Iraqi_Army_on_M252_Mortar.jpg"
+  },
+  {
+    "id": "apkws",
+    "kind": "product",
+    "title": "A-10 Firing APKWS (Courtesy Illustration).jpg",
+    "author": "Samuel King",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A-10_Firing_APKWS_(Courtesy_Illustration).jpg"
+  },
+  {
+    "id": "b1",
+    "kind": "product",
+    "title": "A B-1B Lancer.jpg",
+    "author": "Master Sgt. Nicholas Priest",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_B-1B_Lancer.jpg"
+  },
+  {
+    "id": "b2",
+    "kind": "product",
+    "title": "B-2 Spirit original.jpg",
+    "author": "U.S. Air Force photo/Staff Sgt. Bennie J. Davis III",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:B-2_Spirit_original.jpg"
+  },
+  {
+    "id": "b52",
+    "kind": "product",
+    "title": "B-52 Stratofortress takes off for conditioning flight (9680889).jpg",
+    "author": "U.S. Air Force photo by Airman 1st Class Addison Bolt",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:B-52_Stratofortress_takes_off_for_conditioning_flight_(9680889).jpg"
+  },
+  {
+    "id": "csg",
+    "kind": "product",
+    "title": "Flickr - Official U.S. Navy Imagery - Carrier Strike Group 8 is underway..jpg",
+    "author": "Official Navy Page from United States of America\n\nMC2 Julia A. Casper/U.S. Navy",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Flickr_-_Official_U.S._Navy_Imagery_-_Carrier_Strike_Group_8_is_underway..jpg"
+  },
+  {
+    "id": "ddg",
+    "kind": "product",
+    "title": "USS Arleigh Burke is underway. (11177376336).jpg",
+    "author": "Official U.S. Navy Page from United States of America\n\nMC2 JEFF ATHERTON/U.S. Navy",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Arleigh_Burke_is_underway._(11177376336).jpg"
+  },
+  {
+    "id": "e3",
+    "kind": "product",
+    "title": "Boeing E-3 Sentry 090512-F-7550B-902.jpg",
+    "author": "U.S. Air Force photo by 1st. Lt. Kinder Blacke",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Boeing_E-3_Sentry_090512-F-7550B-902.jpg"
+  },
+  {
+    "id": "ea18g",
+    "kind": "product",
+    "title": "Sailor directs an EA-18G during snow storm in Japan (8367035559).jpg",
+    "author": "Official U.S. Navy Page from United States of America",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sailor_directs_an_EA-18G_during_snow_storm_in_Japan_(8367035559).jpg"
+  },
+  {
+    "id": "f15e",
+    "kind": "product",
+    "title": "Green Flag West 11-08.jpg",
+    "author": "Senior Airman Brett Clashman",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Green_Flag_West_11-08.jpg"
+  },
+  {
+    "id": "f16c",
+    "kind": "product",
+    "title": "A USAF F-16 pilot breaking right on final approach over northern Las Vegas.jpg",
+    "author": "Master Sgt. Benjamin Bloker",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:A_USAF_F-16_pilot_breaking_right_on_final_approach_over_northern_Las_Vegas.jpg"
+  },
+  {
+    "id": "f22",
+    "kind": "product",
+    "title": "F-22 Raptor flying at twilight 190728-F-VA182-1014.jpg",
+    "author": "2nd Lt. Samuel Eckholm",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:F-22_Raptor_flying_at_twilight_190728-F-VA182-1014.jpg"
+  },
+  {
+    "id": "f35a",
+    "kind": "product",
+    "title": "F-35 Heritage Flight Team performs in Bell Fort Worth Alliance AirShow.jpg",
+    "author": "Airman 1st Class Alexander Cook",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:F-35_Heritage_Flight_Team_performs_in_Bell_Fort_Worth_Alliance_AirShow.jpg"
+  },
+  {
+    "id": "fa18",
+    "kind": "product",
+    "title": "An F-A-18E Super Hornet launches from the flight deck of USS Ronald Reagan. (29460669584).jpg",
+    "author": "Official U.S. Navy Page from United States of America\n\nMC3 Nathan Burke/U.S. Navy",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:An_F-A-18E_Super_Hornet_launches_from_the_flight_deck_of_USS_Ronald_Reagan._(29460669584).jpg"
+  },
+  {
+    "id": "gbu12",
+    "kind": "product",
+    "title": "US Navy 100920-N-5538K-042 Marines and Sailors transport GBU-12 Paveway II laser-guided bombs across the flight deck of the forward-deployed amphib.jpg",
+    "author": "U.S. Navy photo by Mass Communication Specialist 3rd Class Casey H. Kyhl",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_100920-N-5538K-042_Marines_and_Sailors_transport_GBU-12_Paveway_II_laser-guided_bombs_across_the_flight_deck_of_the_forward-deployed_amphib.jpg"
+  },
+  {
+    "id": "gbu31",
+    "kind": "product",
+    "title": "US Air Force (USAF) STAFF Sergeant (SSGT) Lucian Williamson, left and SSGT Justin Smith, with the 510th Expeditionary Fighter Squadron (EFS), load a GBU-31 1,000-pound Joint Direct - DPLA - 946c38cc7648c18112bfbfc931949514.jpeg",
+    "author": "Department of Defense. American Forces Information Service. Defense Visual Information Center. 1994",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Air_Force_(USAF)_STAFF_Sergeant_(SSGT)_Lucian_Williamson,_left_and_SSGT_Justin_Smith,_with_the_510th_Expeditionary_Fighter_Squadron_(EFS),_load_a_GBU-31_1,000-pound_Joint_Direct_-_DPLA_-_946c38cc7648c18112bfbfc931949514.jpeg"
+  },
+  {
+    "id": "gbu32",
+    "kind": "product",
+    "title": "US Navy 030228-N-4953E-005 2000 pound Joint Direct Attack Munition (JDAM) GBU-32 bombs stand ready for transport and loading on air wing aircraft, in a weapon's magazine aboard USS Harry S. Truman.jpg",
+    "author": "U.S. Navy photo by Photographer's Mate 3rd Class Danny Ewing Jr.",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_030228-N-4953E-005_2000_pound_Joint_Direct_Attack_Munition_(JDAM)_GBU-32_bombs_stand_ready_for_transport_and_loading_on_air_wing_aircraft,_in_a_weapon%27s_magazine_aboard_USS_Harry_S._Truman.jpg"
+  },
+  {
+    "id": "gbu38",
+    "kind": "product",
+    "title": "US Navy 041123-N-4308O-075 The GBU-38 is a 500-pound Joint Direct Attack Munition (JDAM) that uses a standard Mk-82 bomb, and was developed for precision bombing in urban warfare.jpg",
+    "author": "U.S. Navy photo by Photographer's Mate Airman Ryan O'Connor",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_041123-N-4308O-075_The_GBU-38_is_a_500-pound_Joint_Direct_Attack_Munition_(JDAM)_that_uses_a_standard_Mk-82_bomb,_and_was_developed_for_precision_bombing_in_urban_warfare.jpg"
+  },
+  {
+    "id": "gbu39",
+    "kind": "product",
+    "title": "GBU-39 impact.jpg",
+    "author": "USAF",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:GBU-39_impact.jpg"
+  },
+  {
+    "id": "hellfire",
+    "kind": "product",
+    "title": "AGM-114 Hellfire hung on a Predator drone.JPEG",
+    "author": "TSGT Scott Reed, U.S. Air Force",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:AGM-114_Hellfire_hung_on_a_Predator_drone.JPEG"
+  },
+  {
+    "id": "jassm",
+    "kind": "product",
+    "title": "Global Power Bomber CTF conducts B-1B external captive carry demonstration (201120-F-JG201-9095).jpg",
+    "author": "Ethan Wagner",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Global_Power_Bomber_CTF_conducts_B-1B_external_captive_carry_demonstration_(201120-F-JG201-9095).jpg"
+  },
+  {
+    "id": "kc135",
+    "kind": "product",
+    "title": "KC-135 Stratotanker boom operator.jpg",
+    "author": "Staff Sgt. Douglas Nicodemus",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KC-135_Stratotanker_boom_operator.jpg"
+  },
+  {
+    "id": "kc46",
+    "kind": "product",
+    "title": "KC-46 Pegasus at Pease Air National Guard Base on 7 February 2020.jpg",
+    "author": "U.S. Air National Guard photo by Tech. Sgt. Aaron Vezeau",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:KC-46_Pegasus_at_Pease_Air_National_Guard_Base_on_7_February_2020.jpg"
+  },
+  {
+    "id": "m795",
+    "kind": "product",
+    "title": "DESERT SCIMITAR 140512-M-RD023-077.jpg",
+    "author": "Cpl. Ismael Ortega",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:DESERT_SCIMITAR_140512-M-RD023-077.jpg"
+  },
+  {
+    "id": "meu",
+    "kind": "product",
+    "title": "Cpl. Ryan Dills communicates with other assault amphibious vehicles while traveling from amphibious assault ship USS San Diego to Royal Australian Navy Canberra class amphibious ship HMAS Canberra (L02) in the Pacific Ocean.jpg",
+    "author": "Staff Sgt. Christopher Giannetti",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Cpl._Ryan_Dills_communicates_with_other_assault_amphibious_vehicles_while_traveling_from_amphibious_assault_ship_USS_San_Diego_to_Royal_Australian_Navy_Canberra_class_amphibious_ship_HMAS_Canberra_(L02)_in_the_Pacific_Ocean.jpg"
+  },
+  {
+    "id": "mk82",
+    "kind": "product",
+    "title": "Sailors load a Mk 82 Blu 111 500 pound bomb. (16431385586).jpg",
+    "author": "Official U.S. Navy Page from United States of America",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Sailors_load_a_Mk_82_Blu_111_500_pound_bomb._(16431385586).jpg"
+  },
+  {
+    "id": "mk84",
+    "kind": "product",
+    "title": "US Navy 050119-N-5464G-011 Sailors assigned to the Weapons Department aboard USS Kitty Hawk (CV 63), move a palette of MK-84 2000 pound general purpose bombs into a magazine.jpg",
+    "author": "U.S. Navy photo by Photographer's Mate Airman Theron J. Godbold",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:US_Navy_050119-N-5464G-011_Sailors_assigned_to_the_Weapons_Department_aboard_USS_Kitty_Hawk_(CV_63),_move_a_palette_of_MK-84_2000_pound_general_purpose_bombs_into_a_magazine.jpg"
+  },
+  {
+    "id": "mop",
+    "kind": "product",
+    "title": "Deleted GBU-57 MOP photo (1).jpg",
+    "author": "Unknown authorUnknown author",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Deleted_GBU-57_MOP_photo_(1).jpg"
+  },
+  {
+    "id": "mq9",
+    "kind": "product",
+    "title": "MQ-9 Reaper UAV.jpg",
+    "author": "U.S. Air Force Photo / Lt. Col. Leslie Pratt",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:MQ-9_Reaper_UAV.jpg"
+  },
+  {
+    "id": "pac3",
+    "kind": "product",
+    "title": "Patriot missile firing during Balikatan 2023.jpg",
+    "author": "U.S. Marine Corps photo by Cpl. Tyler Andrews",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Patriot_missile_firing_during_Balikatan_2023.jpg"
+  },
+  {
+    "id": "r9x",
+    "kind": "product",
+    "title": "Helicopter firing Hellfire missile in flight.jpg",
+    "author": "U.S. Army Missile Command",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Helicopter_firing_Hellfire_missile_in_flight.jpg"
+  },
+  {
+    "id": "rc135",
+    "kind": "product",
+    "title": "20190206 RC-135 Rivet Joint Kadena AB-25.jpg",
+    "author": "Balon Greyjoy",
+    "licence": "CC0",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:20190206_RC-135_Rivet_Joint_Kadena_AB-25.jpg"
+  },
+  {
+    "id": "sfoda",
+    "kind": "product",
+    "title": "U.S. Army Special Forces Soldiers assigned to Combined Joint Special Operations Task Force-Afghanistan prepare to patrol with Afghan National Army soldiers with the 6th Special Operations Kandak during an 140115-A-CL980-159.jpg",
+    "author": "SPC Connor Mendez",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:U.S._Army_Special_Forces_Soldiers_assigned_to_Combined_Joint_Special_Operations_Task_Force-Afghanistan_prepare_to_patrol_with_Afghan_National_Army_soldiers_with_the_6th_Special_Operations_Kandak_during_an_140115-A-CL980-159.jpg"
+  },
+  {
+    "id": "sm2",
+    "kind": "product",
+    "title": "The guided-missile destroyer USS Lassen (DDG 82) launches a Standard Missile-2 while conducting torpedo evasion maneuvers during Multi-Sail 2009.jpg",
+    "author": "U.S. Navy photo by Mass Communication Specialist 2nd Class Matthew R. White",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:The_guided-missile_destroyer_USS_Lassen_(DDG_82)_launches_a_Standard_Missile-2_while_conducting_torpedo_evasion_maneuvers_during_Multi-Sail_2009.jpg"
+  },
+  {
+    "id": "sm3",
+    "kind": "product",
+    "title": "USS Lake Erie (CG 70) missile test.jpg",
+    "author": "Mass Communication Specialist 2nd Class Maebel Tinoko (U.S. Navy)",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_Lake_Erie_(CG_70)_missile_test.jpg"
+  },
+  {
+    "id": "sm6",
+    "kind": "product",
+    "title": "USS John Paul Jones (DDG-53) launches RIM-174 June 2014.JPG",
+    "author": "U.S. Navy photo",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS_John_Paul_Jones_(DDG-53)_launches_RIM-174_June_2014.JPG"
+  },
+  {
+    "id": "ssgn",
+    "kind": "product",
+    "title": "USS-Georgia-(SSGN-729).jpg",
+    "author": "U.S. Navy/Mass Communication Specialist 1st Class James Kimber",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:USS-Georgia-(SSGN-729).jpg"
+  },
+  {
+    "id": "thaad",
+    "kind": "product",
+    "title": "Thaad missile and launcher.jpg",
+    "author": "National Missile Defense",
+    "licence": "Public domain",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:Thaad_missile_and_launcher.jpg"
+  },
+  {
+    "id": "tlam",
+    "kind": "product",
+    "title": "23 0046181 Convair Negative Image - Tomahawk missile test launch from aircraft (53806545579).jpg",
+    "author": "SDASM Archives",
+    "licence": "No restrictions",
+    "sourceUrl": "https://commons.wikimedia.org/wiki/File:23_0046181_Convair_Negative_Image_-_Tomahawk_missile_test_launch_from_aircraft_(53806545579).jpg"
+  }
+]

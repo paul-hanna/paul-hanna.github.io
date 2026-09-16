@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sources — Dispatch</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="./">Dispatch</a>
+    <div class="topbar-actions"><a class="btn-ghost" href="./">Back to the store</a></div>
+  </header>
+  <main class="sources">
+    <div class="colophon">
+      <p class="eyebrow">About this site</p>
+      <h1>Sources</h1>
+      <p>Every price in the catalog is a real, publicly documented figure or a clearly flagged estimate derived from one. Flying-hour rates are the FY2025 Department of Defense Comptroller reimbursable rates ("All Other" column). Munition unit costs come from Pentagon budget justification documents as compiled by The War Zone, from replacement-cost figures reported after Operation Midnight Hammer, and from the Costs of War project at Brown University. Where a clean unit price does not exist, the row is marked as an estimate and the derivation is shown.</p>
+      <p>All delivery locations are cities or facilities publicly reported as struck by US forces, or by partner forces using US-supplied munitions, between October 2023 and September 2026.</p>
+      <p><strong>Handling fee:</strong> <span id="handlingNote"></span></p>
+    </div>
+    <div class="table-wrap">
+      <table id="sourcesTable">
+        <thead>
+          <tr><th>Item</th><th>Category</th><th>Price used</th><th>Basis</th><th>FY</th><th>Source</th><th>Note</th></tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="colophon">
+      <h2>Image credits</h2>
+      <p>Every photograph is a public-domain work, almost all of them US government imagery. Public domain imposes no attribution requirement; these are credited anyway.</p>
+    </div>
+    <div class="table-wrap">
+      <table id="creditsTable">
+        <thead><tr><th>Item</th><th>Image</th><th>Author</th><th>Licence</th><th>Source</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="colophon">
+      <h2>Casualty estimate methodology</h2>
+      <p>After an order is delivered the site reports an estimated casualty range. It is an estimate, derived from published reporting on comparable documented strikes. It is not a prediction, and it is not a targeting tool.</p>
+      <p>Each munition carries a range for a densely populated area. That range is multiplied by a density factor for the destination and summed across the order. Air sorties, naval deployments, ground rotations and air-defence interceptors contribute nothing: a sortie or a deployment does not itself kill anyone, and interceptors are defensive.</p>
+      <p>Where the published record shows a hardened, evacuated target, the estimate is zero and is reported as zero.</p>
+      <p>Sources: <a href="https://airwars.org/civilian-casualties/" target="_blank" rel="noopener">Airwars</a>, <a href="https://journals.plos.org/globalpublichealth/article?id=10.1371%2Fjournal.pgph.0003178" target="_blank" rel="noopener">PLOS Global Public Health</a> on 2,000&nbsp;lb detonations in Gaza, <a href="https://www.cfr.org/articles/us-airstrikes-iraq-and-syria-versus-drone-strikes-pakistan-yemen-and-somalia" target="_blank" rel="noopener">Council on Foreign Relations</a> on drone-strike rates, and the <a href="https://costsofwar.watson.brown.edu/" target="_blank" rel="noopener">Costs of War</a> project.</p>
+    </div>
+    <div class="table-wrap">
+      <table id="casualtyTable">
+        <thead><tr><th>Munition</th><th>Estimated per unit</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <div class="table-wrap">
+      <table id="densityTable">
+        <thead><tr><th>Destination</th><th>Density factor</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </main>
+  <footer class="site-footer"><a href="./">Back to the store</a></footer>
+  <script type="module" src="js/sources.js"></script>
+</body>
+</html>

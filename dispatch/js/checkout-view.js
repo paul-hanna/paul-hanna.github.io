@@ -260,7 +260,7 @@ function renderConfirmation(state) {
 function shareText(order) {
   const loc = locationById(order.locationId);
   const lines = order.totals.lineItems.map((l) => `• ${qtyLabel(l.product, l.qty)} ${l.product.name} — ${money(l.lineTotal)}`);
-  return [`My Dispatch order ${order.number} to ${loc.name}, ${loc.country}`, ...lines, `Total: ${money(order.totals.total)}`, 'dispatch — Ordnance, delivered.'].join('\n');
+  return [`My Dispatch order ${order.number} to ${loc.name}, ${loc.country}`, ...lines, `Total: ${money(order.totals.total)}`, 'Dispatch | Ordnance delivery'].join('\n');
 }
 
 export function initCheckout() {
